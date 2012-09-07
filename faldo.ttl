@@ -17,3 +17,20 @@
 :Position
       rdf:type owl:Class ;
       rdfs:subClassOf owl:Thing .
+
+:begin
+      rdf:type rdfs:Class ;
+      rdfs:comment "The begin position of a Location"^^xsd:string ;
+      rdfs:subClassOf owl:DatatypeProperty .
+
+:end  rdf:type rdfs:Class ;
+      rdfs:comment "The end position of a Location"^^xsd:string ;
+      rdfs:subClassOf owl:DatatypeProperty .
+
+:location
+      rdf:type rdfs:Class ;
+      rdfs:subClassOf owl:DatatypeProperty .
+
+:position
+      rdf:type rdfs:Class ;
+      rdfs:subClassOf owl:DatatypeProperty .
