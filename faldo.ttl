@@ -19,6 +19,7 @@
 
 :ExactPosition
       rdf:type owl:Class ;
+      rdfs:comment "Use when you exactly know the position."^^xsd:string ;
       rdfs:subClassOf :Position ;
       rdfs:subClassOf
               [ rdf:type owl:Restriction ;
@@ -47,6 +48,7 @@
 
 :OneOfPosition
       rdf:type owl:Class ;
+      rdfs:comment "The position must be one of the positions listed by the position predicate."^^xsd:string ;
       rdfs:subClassOf :Position ;
       rdfs:subClassOf
               [ rdf:type owl:Restriction ;
@@ -63,9 +65,10 @@
       rdf:type owl:Class ;
       rdfs:subClassOf owl:Thing .
 
-:RangeOfPosition
+:RangePosition
       rdf:type owl:Class ;
-      rdfs:subClassOf :Location , :Position ;
+      rdfs:comment "Use when you have an idea of the range in which you can find the position."^^xsd:string ;
+      rdfs:subClassOf :Position , :Location ;
       rdfs:subClassOf
               [ rdf:type owl:Restriction ;
                 owl:onProperty :position ;
