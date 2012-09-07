@@ -4,33 +4,78 @@
 @prefix owl:     <http://www.w3.org/2002/07/owl#> .
 @prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix spin:    <http://spinrdf.org/spin#> .
 @prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
 
 <http://biohackathon.org/faldo>
       rdf:type owl:Ontology ;
+      spin:imports <http://topbraid.org/spin/owlrl-all> ;
       owl:versionInfo "Created with TopBraid Composer"^^xsd:string .
+
+:ExactPosition
+      rdf:type owl:Class ;
+      rdfs:subClassOf :Position .
+
+:ForwardPosition
+      rdf:type owl:Class ;
+      rdfs:subClassOf :StrandedPosition .
 
 :Location
       rdf:type owl:Class ;
-      rdfs:subClassOf owl:Thing .
+      rdfs:subClassOf owl:Thing ;
+      rdfs:subClassOf
+              [ rdf:type owl:Restriction ;
+                owl:onProperty :position ;
+                owl:someValuesFrom :Position
+              ] ;
+      rdfs:subClassOf
+              [ rdf:type owl:Restriction ;
+                owl:hasValue :Position ;
+                owl:onProperty :begin
+              ] .
+
+:OneOfPosition
+      rdf:type owl:Class ;
+      rdfs:subClassOf :Position ;
+      rdfs:subClassOf
+              [ rdf:type owl:Restriction ;
+                owl:onProperty :position ;
+                owl:someValuesFrom :Position
+              ] .
 
 :Position
       rdf:type owl:Class ;
       rdfs:subClassOf owl:Thing .
 
-:begin
-      rdf:type rdfs:Class ;
-      rdfs:comment "The begin position of a Location"^^xsd:string ;
-      rdfs:subClassOf owl:DatatypeProperty .
+:RangeOfPosition
+      rdf:type owl:Class ;
+      rdfs:subClassOf :Position ;
+      rdfs:subClassOf
+              [ rdf:type owl:Restriction ;
+                owl:onProperty :position ;
+                owl:someValuesFrom :Position
+              ] .
 
-:end  rdf:type rdfs:Class ;
-      rdfs:comment "The end position of a Location"^^xsd:string ;
-      rdfs:subClassOf owl:DatatypeProperty .
+:ReversePosition
+      rdf:type owl:Class ;
+      rdfs:subClassOf :StrandedPosition .
+
+:StrandedPosition
+      rdf:type owl:Class ;
+      rdfs:subClassOf :Position .
+
+:begin
+      rdf:type owl:ObjectProperty .
+
+:end  rdf:type owl:ObjectProperty .
 
 :location
-      rdf:type rdfs:Class ;
-      rdfs:subClassOf owl:DatatypeProperty .
+      rdf:type owl:ObjectProperty .
 
 :position
-      rdf:type rdfs:Class ;
-      rdfs:subClassOf owl:DatatypeProperty .
+      rdf:type owl:ObjectProperty .
+
+:positionValue
+      rdf:type owl:DatatypeProperty ;
+      rdfs:domain :ExactPosition ;
+      rdfs:range xsd:integer .
