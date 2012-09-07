@@ -36,7 +36,22 @@
 :InbetweenPosition
       rdf:type owl:Class ;
       rdfs:comment "This denotes that a feature is in between two other positions that are both known exactly and next to eaxh other. An example is an restriction enzyme cutting site. The cut is after one nucleotide and before the next i.e. in between"^^xsd:string ;
-      rdfs:subClassOf :Position , :Location ;
+      rdfs:subClassOf :Position ;
+      rdfs:subClassOf
+              [ rdf:type owl:Restriction ;
+                owl:hasValue :Position ;
+                owl:onProperty :before
+              ] ;
+      rdfs:subClassOf
+              [ rdf:type owl:Class ;
+                owl:intersectionOf ([ rdf:type owl:Restriction ;
+                            owl:hasValue :Position ;
+                            owl:onProperty :begin
+                          ] [ rdf:type owl:Restriction ;
+                            owl:hasValue :Position ;
+                            owl:onProperty :end
+                          ])
+              ] ;
       rdfs:subClassOf
               [ rdf:type owl:Class ;
                 owl:intersectionOf ([ rdf:type owl:Restriction ;
@@ -55,31 +70,7 @@
                                       ])
                           ])
               ] ;
-      owl:disjointWith :OneOfPosition , :ExactPosition , :RangePosition .
-
-:Location
-      rdf:type owl:Class ;
-      rdfs:subClassOf owl:Thing ;
-      rdfs:subClassOf
-              [ rdf:type owl:Class ;
-                owl:intersectionOf ([ rdf:type owl:Restriction ;
-                            owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-                            owl:onProperty :begin
-                          ] [ rdf:type owl:Restriction ;
-                            owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-                            owl:onProperty :end
-                          ])
-              ] ;
-      rdfs:subClassOf
-              [ rdf:type owl:Restriction ;
-                owl:onProperty :end ;
-                owl:someValuesFrom :Position
-              ] ;
-      rdfs:subClassOf
-              [ rdf:type owl:Restriction ;
-                owl:hasValue :Position ;
-                owl:onProperty :begin
-              ] .
+      owl:disjointWith :ExactPosition , :RangePosition , :OneOfPosition .
 
 :OneOfPosition
       rdf:type owl:Class ;
@@ -104,8 +95,28 @@
 :RangePosition
       rdf:type owl:Class ;
       rdfs:comment "Use when you have an idea of the range in which you can find the position."^^xsd:string ;
-      rdfs:subClassOf :Position , :Location ;
-      owl:disjointWith :OneOfPosition , :ExactPosition , :InbetweenPosition , :StrandedPosition .
+      rdfs:subClassOf :Position ;
+      rdfs:subClassOf
+              [ rdf:type owl:Class ;
+                owl:intersectionOf ([ rdf:type owl:Restriction ;
+                            owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
+                            owl:onProperty :begin
+                          ] [ rdf:type owl:Restriction ;
+                            owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
+                            owl:onProperty :end
+                          ])
+              ] ;
+      rdfs:subClassOf
+              [ rdf:type owl:Class ;
+                owl:intersectionOf ([ rdf:type owl:Restriction ;
+                            owl:hasValue :Position ;
+                            owl:onProperty :begin
+                          ] [ rdf:type owl:Restriction ;
+                            owl:hasValue :Position ;
+                            owl:onProperty :end
+                          ])
+              ] ;
+      owl:disjointWith :InbetweenPosition , :StrandedPosition , :OneOfPosition , :ExactPosition .
 
 :ReversePosition
       rdf:type owl:Class ;
@@ -130,11 +141,9 @@
 
 :begin
       rdf:type owl:ObjectProperty ;
-      rdfs:domain :Location ;
       rdfs:range :Position .
 
 :end  rdf:type owl:ObjectProperty ;
-      rdfs:domain :Location ;
       rdfs:range :Position .
 
 :location
