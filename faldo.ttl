@@ -25,19 +25,54 @@
               [ rdf:type owl:Restriction ;
                 owl:cardinality "1"^^xsd:nonNegativeInteger ;
                 owl:onProperty :positionValue
-              ] .
+              ] ;
+      owl:disjointWith :OneOfPosition , :InbetweenPosition , :RangePosition .
 
 :ForwardPosition
       rdf:type owl:Class ;
       rdfs:subClassOf :StrandedPosition ;
-      owl:disjointWith :ReversePosition .
+      owl:disjointWith :BothStrandsPosition , :ReversePosition .
+
+:InbetweenPosition
+      rdf:type owl:Class ;
+      rdfs:comment "This denotes that a feature is in between two other positions that are both known exactly and next to eaxh other. An example is an restriction enzyme cutting site. The cut is after one nucleotide and before the next i.e. in between"^^xsd:string ;
+      rdfs:subClassOf :Position , :Location ;
+      rdfs:subClassOf
+              [ rdf:type owl:Class ;
+                owl:intersectionOf ([ rdf:type owl:Restriction ;
+                            owl:cardinality "1"^^xsd:nonNegativeInteger ;
+                            owl:onProperty :before
+                          ] [ rdf:type owl:Class ;
+                            owl:intersectionOf ([ rdf:type owl:Restriction ;
+                                        owl:onProperty :before ;
+                                        owl:someValuesFrom :ExactPosition
+                                      ] [ rdf:type owl:Restriction ;
+                                        owl:cardinality "1"^^xsd:nonNegativeInteger ;
+                                        owl:onProperty :after
+                                      ] [ rdf:type owl:Restriction ;
+                                        owl:onProperty :after ;
+                                        owl:someValuesFrom :ExactPosition
+                                      ])
+                          ])
+              ] ;
+      owl:disjointWith :OneOfPosition , :ExactPosition , :RangePosition .
 
 :Location
       rdf:type owl:Class ;
       rdfs:subClassOf owl:Thing ;
       rdfs:subClassOf
+              [ rdf:type owl:Class ;
+                owl:intersectionOf ([ rdf:type owl:Restriction ;
+                            owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
+                            owl:onProperty :begin
+                          ] [ rdf:type owl:Restriction ;
+                            owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
+                            owl:onProperty :end
+                          ])
+              ] ;
+      rdfs:subClassOf
               [ rdf:type owl:Restriction ;
-                owl:onProperty :position ;
+                owl:onProperty :end ;
                 owl:someValuesFrom :Position
               ] ;
       rdfs:subClassOf
@@ -59,7 +94,8 @@
               [ rdf:type owl:Restriction ;
                 owl:onProperty :position ;
                 owl:someValuesFrom :Position
-              ] .
+              ] ;
+      owl:disjointWith :ExactPosition , :InbetweenPosition , :RangePosition .
 
 :Position
       rdf:type owl:Class ;
@@ -69,33 +105,52 @@
       rdf:type owl:Class ;
       rdfs:comment "Use when you have an idea of the range in which you can find the position."^^xsd:string ;
       rdfs:subClassOf :Position , :Location ;
-      rdfs:subClassOf
-              [ rdf:type owl:Restriction ;
-                owl:onProperty :position ;
-                owl:someValuesFrom :Position
-              ] .
+      owl:disjointWith :OneOfPosition , :ExactPosition , :InbetweenPosition , :StrandedPosition .
 
 :ReversePosition
       rdf:type owl:Class ;
       rdfs:subClassOf :StrandedPosition ;
-      owl:disjointWith :ForwardPosition .
+      owl:disjointWith :BothStrandsPosition , :ForwardPosition .
 
 :StrandedPosition
       rdf:type owl:Class ;
       rdfs:subClassOf :Position .
 
-:begin
-      rdf:type owl:ObjectProperty .
+:after
+      rdf:type owl:ObjectProperty ;
+      rdfs:domain :InbetweenPosition ;
+      rdfs:range :RangePosition ;
+      rdfs:subPropertyOf :begin .
 
-:end  rdf:type owl:ObjectProperty .
+:before
+      rdf:type owl:ObjectProperty ;
+      rdfs:domain :InbetweenPosition ;
+      rdfs:range :ExactPosition ;
+      rdfs:subPropertyOf :end .
+
+:begin
+      rdf:type owl:ObjectProperty ;
+      rdfs:domain :Location ;
+      rdfs:range :Position .
+
+:end  rdf:type owl:ObjectProperty ;
+      rdfs:domain :Location ;
+      rdfs:range :Position .
 
 :location
       rdf:type owl:ObjectProperty .
 
 :position
-      rdf:type owl:ObjectProperty .
+      rdf:type owl:ObjectProperty ;
+      rdfs:domain :OneOfPosition ;
+      rdfs:range :Position .
 
 :positionValue
       rdf:type owl:DatatypeProperty ;
+      rdfs:comment "A position on the first amino acid or nucleotide of a sequence has the value 1. i.e. Python style array indexing not java/C style."^^xsd:string , "The positionValue is the offset along the reference where this position is found. Thus the only the positionValue in combination with the reference determines where a Position is."^^xsd:string ;
       rdfs:domain :ExactPosition ;
       rdfs:range xsd:integer .
+
+:reference
+      rdf:type owl:ObjectProperty ;
+      rdfs:comment "The reference is the resource that determines where the positionValue offsets into.  For example it points to a contig or a genome assembly."^^xsd:string .
