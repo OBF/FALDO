@@ -9,16 +9,27 @@
 
 <http://biohackathon.org/faldo>
       rdf:type owl:Ontology ;
-      spin:imports <http://topbraid.org/spin/owlrl-all> ;
+      spin:imports <http://topbraid.org/spin/rdfsplus> , <http://topbraid.org/spin/owlrl-all> ;
       owl:versionInfo "Created with TopBraid Composer"^^xsd:string .
+
+:BothStrandsPosition
+      rdf:type owl:Class ;
+      rdfs:subClassOf :StrandedPosition ;
+      owl:disjointWith :ReversePosition , :ForwardPosition .
 
 :ExactPosition
       rdf:type owl:Class ;
-      rdfs:subClassOf :Position .
+      rdfs:subClassOf :Position ;
+      rdfs:subClassOf
+              [ rdf:type owl:Restriction ;
+                owl:cardinality "1"^^xsd:nonNegativeInteger ;
+                owl:onProperty :positionValue
+              ] .
 
 :ForwardPosition
       rdf:type owl:Class ;
-      rdfs:subClassOf :StrandedPosition .
+      rdfs:subClassOf :StrandedPosition ;
+      owl:disjointWith :ReversePosition .
 
 :Location
       rdf:type owl:Class ;
@@ -39,6 +50,11 @@
       rdfs:subClassOf :Position ;
       rdfs:subClassOf
               [ rdf:type owl:Restriction ;
+                owl:minCardinality "2"^^xsd:nonNegativeInteger ;
+                owl:onProperty :position
+              ] ;
+      rdfs:subClassOf
+              [ rdf:type owl:Restriction ;
                 owl:onProperty :position ;
                 owl:someValuesFrom :Position
               ] .
@@ -49,7 +65,7 @@
 
 :RangeOfPosition
       rdf:type owl:Class ;
-      rdfs:subClassOf :Position ;
+      rdfs:subClassOf :Location , :Position ;
       rdfs:subClassOf
               [ rdf:type owl:Restriction ;
                 owl:onProperty :position ;
@@ -58,7 +74,8 @@
 
 :ReversePosition
       rdf:type owl:Class ;
-      rdfs:subClassOf :StrandedPosition .
+      rdfs:subClassOf :StrandedPosition ;
+      owl:disjointWith :ForwardPosition .
 
 :StrandedPosition
       rdf:type owl:Class ;
