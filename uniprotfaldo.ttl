@@ -1,0 +1,30 @@
+# baseURI: http://purl.uniprot.org/uniprotfaldo
+# imports: http://biohackathon.org/faldo
+# imports: http://purl.uniprot.org/core/
+
+@prefix :        <http://purl.uniprot.org/uniprotfaldo#> .
+@prefix core:    <http://purl.uniprot.org/core/> .
+@prefix faldo:   <http://biohackathon.org/faldo#> .
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+
+<http://purl.uniprot.org/uniprotfaldo>
+      rdf:type owl:Ontology ;
+      owl:imports core: , <http://biohackathon.org/faldo> ;
+      owl:versionInfo "Created with TopBraid Composer"^^xsd:string .
+
+:ProteinPosition
+      rdf:type rdfs:Class ;
+      rdfs:comment "An uniprot feature is always described in relation to a UniProt sequence which is an amino acid. This can never be a StrandedPosition"^^xsd:string ;
+      rdfs:subClassOf owl:Thing , core:Range ;
+      rdfs:subClassOf
+              [ rdf:type owl:Restriction ;
+                owl:onProperty faldo:reference ;
+                owl:someValuesFrom core:Sequence
+              ] ;
+      rdfs:subClassOf
+              [ rdf:type owl:Class ;
+                owl:complementOf faldo:StrandedPosition
+              ] .
