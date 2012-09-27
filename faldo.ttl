@@ -9,14 +9,15 @@
 
 <http://biohackathon.org/faldo>
       rdf:type owl:Ontology ;
-      spin:imports <http://topbraid.org/spin/owlrl-all> , <http://topbraid.org/spin/rdfsplus> ;
+      spin:imports <http://topbraid.org/spin/rdfsplus> , <http://topbraid.org/spin/owlrl-all> ;
       owl:versionInfo "Created with TopBraid Composer"^^xsd:string .
 
 :BothStrandsPosition
       rdf:type owl:Class ;
+      rdfs:comment "When the position is best described as stradeling both strands use this type."^^xsd:string ;
       rdfs:label "0"^^xsd:string ;
       rdfs:subClassOf :StrandedPosition ;
-      owl:disjointWith :ForwardStrandPosition , :ReverseStrandPosition .
+      owl:disjointWith :ReverseStrandPosition , :ForwardStrandPosition .
 
 :ExactPosition
       rdf:type owl:Class ;
@@ -28,13 +29,14 @@
                 owl:cardinality "1"^^xsd:nonNegativeInteger ;
                 owl:onProperty :position
               ] ;
-      owl:disjointWith :OneOfPosition , :InbetweenPosition , :InRangePosition .
+      owl:disjointWith :InRangePosition , :InbetweenPosition , :OneOfPosition .
 
 :ForwardStrandPosition
       rdf:type owl:Class ;
+      rdfs:comment "The position is clearly on the forward strand"^^xsd:string ;
       rdfs:label "-"^^xsd:string ;
       rdfs:subClassOf :StrandedPosition ;
-      owl:disjointWith :BothStrandsPosition , :ReverseStrandPosition .
+      owl:disjointWith :ReverseStrandPosition , :BothStrandsPosition .
 
 :InRangePosition
       rdf:type owl:Class ;
@@ -69,11 +71,6 @@
       rdfs:label "In between positions."^^xsd:string ;
       rdfs:subClassOf :Position ;
       rdfs:subClassOf
-              [ rdf:type owl:Restriction ;
-                owl:hasValue :Position ;
-                owl:onProperty :before
-              ] ;
-      rdfs:subClassOf
               [ rdf:type owl:Class ;
                 owl:intersectionOf ([ rdf:type owl:Restriction ;
                             owl:cardinality "1"^^xsd:nonNegativeInteger ;
@@ -91,7 +88,12 @@
                                       ])
                           ])
               ] ;
-      owl:disjointWith :OneOfPosition , :InRangePosition , :ExactPosition .
+      rdfs:subClassOf
+              [ rdf:type owl:Restriction ;
+                owl:hasValue :Position ;
+                owl:onProperty :before
+              ] ;
+      owl:disjointWith :ExactPosition , :InRangePosition , :OneOfPosition .
 
 :OneOfPosition
       rdf:type owl:Class ;
@@ -100,19 +102,24 @@
       rdfs:subClassOf :Position ;
       rdfs:subClassOf
               [ rdf:type owl:Restriction ;
-                owl:onProperty :possiblePosition ;
-                owl:someValuesFrom :Position
-              ] ;
-      rdfs:subClassOf
-              [ rdf:type owl:Restriction ;
                 owl:minCardinality "2"^^xsd:nonNegativeInteger ;
                 owl:onProperty :possiblePosition
               ] ;
-      owl:disjointWith :ExactPosition , :InbetweenPosition , :InRangePosition .
+      rdfs:subClassOf
+              [ rdf:type owl:Restriction ;
+                owl:onProperty :possiblePosition ;
+                owl:someValuesFrom :Position
+              ] ;
+      owl:disjointWith :InRangePosition , :InbetweenPosition , :ExactPosition .
 
 :Position
       rdf:type owl:Class ;
-      rdfs:subClassOf owl:Thing .
+      rdfs:subClassOf owl:Thing ;
+      rdfs:subClassOf
+              [ rdf:type owl:Restriction ;
+                owl:cardinality "1"^^xsd:nonNegativeInteger ;
+                owl:onProperty :reference
+              ] .
 
 :Region
       rdf:type owl:Class ;
@@ -142,13 +149,14 @@
 
 :ReverseStrandPosition
       rdf:type owl:Class ;
+      rdfs:comment "The position is clearly on the reverse strand."^^xsd:string ;
       rdfs:label "+"^^xsd:string ;
       rdfs:subClassOf :StrandedPosition ;
-      owl:disjointWith :ForwardStrandPosition , :BothStrandsPosition .
+      owl:disjointWith :BothStrandsPosition , :ForwardStrandPosition .
 
 :StrandedPosition
       rdf:type owl:Class ;
-      rdfs:comment "If you do not know which strand  the feature is on but you do know  that  it is on a strand then give the resouce this general type.".
+      rdfs:comment "If you do not know which strand  the feature is on but you do know  that  it is on a strand then give the resouce this general type." ;
       rdfs:subClassOf :Position .
 
 :after
@@ -174,7 +182,7 @@
 
 :position
       rdf:type owl:DatatypeProperty ;
-      rdfs:comment "A position on the first amino acid or nucleotide of a sequence has the value 1. i.e. Python style array indexing not java/C style."^^xsd:string , "The positionValue is the offset along the reference where this position is found. Thus the only the positionValue in combination with the reference determines where a Position is."^^xsd:string ;
+      rdfs:comment "The positionValue is the offset along the reference where this position is found. Thus the only the positionValue in combination with the reference determines where a Position is."^^xsd:string , "A position on the first amino acid or nucleotide of a sequence has the value 1. i.e. Python style array indexing not java/C style."^^xsd:string ;
       rdfs:domain :ExactPosition ;
       rdfs:range xsd:integer .
 
