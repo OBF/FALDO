@@ -115,11 +115,16 @@
                 owl:onProperty :possiblePosition ;
                 owl:someValuesFrom :Position
               ] ;
-      owl:disjointWith :ExactPosition , :InbetweenPosition , :InRangePosition .
+      owl:disjointWith :InRangePosition , :InbetweenPosition , :ExactPosition .
 
 :Position
       rdf:type owl:Class ;
-      rdfs:subClassOf owl:Thing .
+      rdfs:subClassOf owl:Thing ;
+      rdfs:subClassOf
+              [ rdf:type owl:Restriction ;
+                owl:cardinality "1"^^xsd:nonNegativeInteger ;
+                owl:onProperty :reference
+              ] .
 
 :Region
       rdf:type owl:Class ;
