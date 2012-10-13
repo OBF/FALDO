@@ -9,7 +9,7 @@
 
 <http://biohackathon.org/faldo>
       rdf:type owl:Ontology ;
-      spin:imports <http://topbraid.org/spin/spinowl> , <http://topbraid.org/spin/rdfsplus> , <http://topbraid.org/spin/owlrl-all> ;
+      spin:imports <http://topbraid.org/spin/owlrl-all> , <http://topbraid.org/spin/rdfsplus> , <http://topbraid.org/spin/spinowl> ;
       owl:versionInfo "Created with TopBraid Composer"^^xsd:string .
 
 :BothStrandsPosition
@@ -17,7 +17,7 @@
       rdfs:comment "The both strands position mean that the region spans both strands instead of one."^^xsd:string ;
       rdfs:label "0"^^xsd:string ;
       rdfs:subClassOf :StrandedPosition ;
-      owl:disjointWith :ReverseStrandPosition , :ForwardStrandPosition .
+      owl:disjointWith :ForwardStrandPosition , :ReverseStrandPosition .
 
 :ExactPosition
       rdf:type owl:Class ;
@@ -29,14 +29,14 @@
                 owl:cardinality "1"^^xsd:nonNegativeInteger ;
                 owl:onProperty :position
               ] ;
-      owl:disjointWith :InRangePosition , :InbetweenPosition , :OneOfPosition .
+      owl:disjointWith :OneOfPosition , :InbetweenPosition , :InRangePosition .
 
 :ForwardStrandPosition
       rdf:type owl:Class ;
       rdfs:comment "The position is on the forward (positive) strand."^^xsd:string ;
       rdfs:label "-"^^xsd:string ;
       rdfs:subClassOf :StrandedPosition ;
-      owl:disjointWith :ReverseStrandPosition , :BothStrandsPosition .
+      owl:disjointWith :BothStrandsPosition , :ReverseStrandPosition .
 
 :FuzzyPosition
       rdf:type owl:Class ;
@@ -51,20 +51,20 @@
       rdfs:subClassOf
               [ rdf:type owl:Class ;
                 owl:intersectionOf ([ rdf:type owl:Restriction ;
-                            owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-                            owl:onProperty :begin
+                            owl:onProperty :begin ;
+                            owl:someValuesFrom :Position
                           ] [ rdf:type owl:Restriction ;
-                            owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-                            owl:onProperty :end
+                            owl:onProperty :end ;
+                            owl:someValuesFrom :Position
                           ])
               ] ;
       rdfs:subClassOf
               [ rdf:type owl:Class ;
                 owl:intersectionOf ([ rdf:type owl:Restriction ;
-                            owl:hasValue :Position ;
+                            owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
                             owl:onProperty :begin
                           ] [ rdf:type owl:Restriction ;
-                            owl:hasValue :Position ;
+                            owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
                             owl:onProperty :end
                           ])
               ] ;
@@ -75,6 +75,11 @@
       rdfs:comment "This denotes that a feature is in between two other positions that are both known exactly and next to eaxh other. An example is an restriction enzyme cutting site. The cut is after one nucleotide and before the next i.e. in between"^^xsd:string ;
       rdfs:label "In between positions."^^xsd:string ;
       rdfs:subClassOf :Position ;
+      rdfs:subClassOf
+              [ rdf:type owl:Restriction ;
+                owl:hasValue :Position ;
+                owl:onProperty :before
+              ] ;
       rdfs:subClassOf
               [ rdf:type owl:Class ;
                 owl:intersectionOf ([ rdf:type owl:Restriction ;
@@ -93,12 +98,7 @@
                                       ])
                           ])
               ] ;
-      rdfs:subClassOf
-              [ rdf:type owl:Restriction ;
-                owl:hasValue :Position ;
-                owl:onProperty :before
-              ] ;
-      owl:disjointWith :ExactPosition , :InRangePosition , :OneOfPosition .
+      owl:disjointWith :OneOfPosition , :InRangePosition , :ExactPosition .
 
 :OneOfPosition
       rdf:type owl:Class ;
@@ -107,15 +107,15 @@
       rdfs:subClassOf :FuzzyPosition ;
       rdfs:subClassOf
               [ rdf:type owl:Restriction ;
-                owl:minCardinality "2"^^xsd:nonNegativeInteger ;
-                owl:onProperty :possiblePosition
-              ] ;
-      rdfs:subClassOf
-              [ rdf:type owl:Restriction ;
                 owl:onProperty :possiblePosition ;
                 owl:someValuesFrom :Position
               ] ;
-      owl:disjointWith :InRangePosition , :InbetweenPosition , :ExactPosition .
+      rdfs:subClassOf
+              [ rdf:type owl:Restriction ;
+                owl:minCardinality "2"^^xsd:nonNegativeInteger ;
+                owl:onProperty :possiblePosition
+              ] ;
+      owl:disjointWith :ExactPosition , :InbetweenPosition , :InRangePosition .
 
 :Position
       rdf:type owl:Class ;
@@ -157,7 +157,7 @@
       rdfs:comment "The position is on the reverse (complement) strand of the sequence."^^xsd:string ;
       rdfs:label "+"^^xsd:string ;
       rdfs:subClassOf :StrandedPosition ;
-      owl:disjointWith :BothStrandsPosition , :ForwardStrandPosition .
+      owl:disjointWith :ForwardStrandPosition , :BothStrandsPosition .
 
 :StrandedPosition
       rdf:type owl:Class ;
@@ -188,7 +188,7 @@
 
 :position
       rdf:type owl:DatatypeProperty ;
-      rdfs:comment "The positionValue is the offset along the reference where this position is found. Thus the only the positionValue in combination with the reference determines where a Position is."^^xsd:string , "A position on the first amino acid or nucleotide of a sequence has the value 1. i.e. Python style array indexing not java/C style."^^xsd:string ;
+      rdfs:comment "A position on the first amino acid or nucleotide of a sequence has the value 1. i.e. Python style array indexing not java/C style."^^xsd:string , "The positionValue is the offset along the reference where this position is found. Thus the only the positionValue in combination with the reference determines where a Position is."^^xsd:string ;
       rdfs:domain :ExactPosition ;
       rdfs:range xsd:integer .
 
