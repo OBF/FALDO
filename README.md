@@ -12,7 +12,7 @@ Examples
 
 h3. An region where we know exactly where it starts and ends on the reference sequence.
 
-<_:1> a :Region ;
+```<_:1> a :Region ;
            :begin <_:1b> ;
            :end <_:1e> .
 <_:1b> a :Position ; 
@@ -35,7 +35,7 @@ h3. An region where we know exactly where it starts and ends on the reference se
         a :ExactlyKnownPosition ;
         a :ForwardStrandPosition ;
            :position "7"^^xsd:int ;
-           :reference ddbj:XXXDSDS .
+           :reference ddbj:XXXDSDS .```
 
 h3. A Region where the begin is on one contig and the end on an other.
 
