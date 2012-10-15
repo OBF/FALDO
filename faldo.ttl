@@ -42,6 +42,7 @@
       rdf:type owl:Class ;
       rdfs:comment "Use this class to indicate that you lack exact position data."^^xsd:string ;
       rdfs:subClassOf :Position .
+=======
 
 :InRangePosition
       rdf:type owl:Class ;
@@ -125,6 +126,26 @@
                 owl:cardinality "1"^^xsd:nonNegativeInteger ;
                 owl:onProperty :reference
               ] .
+
+:PositionOnDNASequence
+      rdf:type owl:Class ;
+      rdfs:comment "This position is described in relation to a DNA sequence"^^xsd:string ;
+      rdfs:subClassOf :StrandedPosition .
+
+:PositionOnDoubleStrandedRNASequence
+      rdf:type owl:Class ;
+      rdfs:comment "This position is described in relation to a double stranded RNA sequence"^^xsd:string ;
+      rdfs:subClassOf :StrandedPosition .
+
+:PositionOnForwardSingleStrandRNASequence
+      rdf:type owl:Class ;
+      rdfs:comment "This position is described in relation to a forward RNA sequence"^^xsd:string ;
+      rdfs:subClassOf :ForwardStrandPosition .
+
+:PositionOnSingleStrandReverseRNASequence
+      rdf:type owl:Class ;
+      rdfs:comment "This position is described in relation to a (-) reverse RNA sequence"^^xsd:string ;
+      rdfs:subClassOf :ReverseStrandPosition .
 
 :Region
       rdf:type owl:Class ;
