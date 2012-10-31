@@ -9,7 +9,7 @@
 
 <http://biohackathon.org/faldo>
       rdf:type owl:Ontology ;
-      spin:imports <http://topbraid.org/spin/spinowl> , <http://topbraid.org/spin/rdfsplus> , <http://topbraid.org/spin/owlrl-all> ;
+      spin:imports <http://topbraid.org/spin/owlrl-all> , <http://topbraid.org/spin/rdfsplus> , <http://topbraid.org/spin/spinowl> ;
       owl:versionInfo "Created with TopBraid Composer"^^xsd:string .
 
 :BothStrandsPosition
@@ -17,7 +17,7 @@
       rdfs:comment "The both strands position mean that the region spans both strands instead of one. In GGF3 displayed as 0. This does not mean that the position is one or the other strand but is best described as being on both."^^xsd:string ;
       rdfs:label "Both strands"^^xsd:string ;
       rdfs:subClassOf :StrandedPosition ;
-      owl:disjointWith :ForwardStrandPosition , :ReverseStrandPosition .
+      owl:disjointWith :ReverseStrandPosition , :ForwardStrandPosition .
 
 :ExactPosition
       rdf:type owl:Class ;
@@ -29,14 +29,14 @@
                 owl:cardinality "1"^^xsd:nonNegativeInteger ;
                 owl:onProperty :position
               ] ;
-      owl:disjointWith :InBetweenPosition , :InRangePosition , :OneOfPosition .
+      owl:disjointWith :OneOfPosition , :InRangePosition , :InBetweenPosition .
 
 :ForwardStrandPosition
       rdf:type owl:Class ;
       rdfs:comment "The position is on the forward (positive) strand. Shown as a '+' in GFF3 and GTF"^^xsd:string ;
       rdfs:label "Positive strand"^^xsd:string ;
       rdfs:subClassOf :StrandedPosition ;
-      owl:disjointWith :BothStrandsPosition , :ReverseStrandPosition .
+      owl:disjointWith :ReverseStrandPosition , :BothStrandsPosition .
 
 :FuzzyPosition
       rdf:type owl:Class ;
@@ -63,7 +63,7 @@
                                     "1"^^xsd:nonNegativeInteger
                           ])
               ] ;
-      owl:disjointWith :ExactPosition , :OneOfPosition , :InRangePosition .
+      owl:disjointWith :InRangePosition , :OneOfPosition , :ExactPosition .
 
 :InRangePosition
       rdf:type owl:Class ;
@@ -84,14 +84,14 @@
                             owl:onProperty :end
                           ])
               ] ;
-      owl:disjointWith :OneOfPosition , :StrandedPosition , :ExactPosition , :InBetweenPosition .
+      owl:disjointWith :InBetweenPosition , :ExactPosition , :StrandedPosition , :OneOfPosition .
 
 :OneOfPosition
       rdf:type owl:Class ;
       rdfs:comment "The position must be one of the positions listed by the position predicate."^^xsd:string ;
       rdfs:label "One of positions"^^xsd:string ;
       rdfs:subClassOf :FuzzyPosition ;
-      owl:disjointWith :ExactPosition , :InBetweenPosition , :InRangePosition .
+      owl:disjointWith :InRangePosition , :InBetweenPosition , :ExactPosition .
 
 :Position
       rdf:type owl:Class ;
@@ -129,7 +129,7 @@
       rdfs:comment "The position is on the reverse (complement) strand of the sequence. Shown as '-' in GTF and GFF3"^^xsd:string ;
       rdfs:label "Negative strand"^^xsd:string ;
       rdfs:subClassOf :StrandedPosition ;
-      owl:disjointWith :ForwardStrandPosition , :BothStrandsPosition .
+      owl:disjointWith :BothStrandsPosition , :ForwardStrandPosition .
 
 :StrandedPosition
       rdf:type owl:Class ;
@@ -157,11 +157,14 @@
 
 :location
       rdf:type owl:ObjectProperty ;
-      rdfs:range :Region .
+      rdfs:range
+              [ rdf:type owl:Class ;
+                owl:unionOf (:Region :Position)
+              ] .
 
 :position
       rdf:type owl:DatatypeProperty ;
-      rdfs:comment "The positionValue is the offset along the reference where this position is found. Thus the only the positionValue in combination with the reference determines where a Position is."^^xsd:string , "A position on the first amino acid or nucleotide of a sequence has the value 1. i.e. Python style array indexing not java/C style."^^xsd:string ;
+      rdfs:comment "A position on the first amino acid or nucleotide of a sequence has the value 1. i.e. Python style array indexing not java/C style."^^xsd:string , "The positionValue is the offset along the reference where this position is found. Thus the only the positionValue in combination with the reference determines where a Position is."^^xsd:string ;
       rdfs:domain :ExactPosition ;
       rdfs:range xsd:integer .
 
