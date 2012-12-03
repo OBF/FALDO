@@ -9,7 +9,7 @@
 
 <http://biohackathon.org/resource/faldo>
       rdf:type owl:Ontology ;
-      spin:imports <http://topbraid.org/spin/owlrl-all> , <http://topbraid.org/spin/rdfsplus> , <http://topbraid.org/spin/spinowl> ;
+      spin:imports <http://topbraid.org/spin/spinowl> , <http://topbraid.org/spin/rdfsplus> , <http://topbraid.org/spin/owlrl-all> ;
       owl:versionInfo "Created with TopBraid Composer"^^xsd:string .
 
 :BothStrandsPosition
@@ -17,7 +17,7 @@
       rdfs:comment "The both strands position mean that the region spans both strands instead of one. In GGF3 displayed as 0. This does not mean that the position is one or the other strand but is best described as being on both."^^xsd:string ;
       rdfs:label "Both strands"^^xsd:string ;
       rdfs:subClassOf :StrandedPosition ;
-      owl:disjointWith :ReverseStrandPosition , :ForwardStrandPosition .
+      owl:disjointWith :ForwardStrandPosition , :ReverseStrandPosition .
 
 :ExactPosition
       rdf:type owl:Class ;
@@ -29,14 +29,14 @@
                 owl:cardinality "1"^^xsd:nonNegativeInteger ;
                 owl:onProperty :position
               ] ;
-      owl:disjointWith :OneOfPosition , :InRangePosition , :InBetweenPosition .
+      owl:disjointWith :InBetweenPosition , :InRangePosition , :OneOfPosition .
 
 :ForwardStrandPosition
       rdf:type owl:Class ;
       rdfs:comment "The position is on the forward (positive) strand. Shown as a '+' in GFF3 and GTF"^^xsd:string ;
       rdfs:label "Positive strand"^^xsd:string ;
       rdfs:subClassOf :StrandedPosition ;
-      owl:disjointWith :ReverseStrandPosition , :BothStrandsPosition .
+      owl:disjointWith :BothStrandsPosition , :ReverseStrandPosition .
 
 :FuzzyPosition
       rdf:type owl:Class ;
@@ -63,7 +63,7 @@
                                     "1"^^xsd:nonNegativeInteger
                           ])
               ] ;
-      owl:disjointWith :InRangePosition , :OneOfPosition , :ExactPosition .
+      owl:disjointWith :ExactPosition , :OneOfPosition , :InRangePosition .
 
 :InRangePosition
       rdf:type owl:Class ;
@@ -84,14 +84,14 @@
                             owl:onProperty :end
                           ])
               ] ;
-      owl:disjointWith :InBetweenPosition , :ExactPosition , :StrandedPosition , :OneOfPosition .
+      owl:disjointWith :OneOfPosition , :StrandedPosition , :ExactPosition , :InBetweenPosition .
 
 :OneOfPosition
       rdf:type owl:Class ;
-      rdfs:comment "The position must be one of the positions listed by the position predicate."^^xsd:string ;
+      rdfs:comment "The position must be one of the more detailed Positions listed by the location predicate."^^xsd:string ;
       rdfs:label "One of positions"^^xsd:string ;
       rdfs:subClassOf :FuzzyPosition ;
-      owl:disjointWith :InRangePosition , :InBetweenPosition , :ExactPosition .
+      owl:disjointWith :InBetweenPosition , :InRangePosition , :ExactPosition .
 
 :Position
       rdf:type owl:Class ;
@@ -106,7 +106,7 @@
 
 :Region
       rdf:type owl:Class ;
-      rdfs:comment "A region describes an length of sequence with a start and end position that represents a feature on a Sequence. i.e. A gene"^^xsd:string ;
+      rdfs:comment "A region describes an length of sequence with a start and end position that represents a feature on a Sequence. i.e. a gene"^^xsd:string ;
       rdfs:label "Region"^^xsd:string ;
       rdfs:subClassOf owl:Thing ;
       rdfs:subClassOf
@@ -129,7 +129,7 @@
       rdfs:comment "The position is on the reverse (complement) strand of the sequence. Shown as '-' in GTF and GFF3"^^xsd:string ;
       rdfs:label "Negative strand"^^xsd:string ;
       rdfs:subClassOf :StrandedPosition ;
-      owl:disjointWith :BothStrandsPosition , :ForwardStrandPosition .
+      owl:disjointWith :ForwardStrandPosition , :BothStrandsPosition .
 
 :StrandedPosition
       rdf:type owl:Class ;
@@ -145,18 +145,22 @@
 
 :before
       rdf:type owl:ObjectProperty ;
+      rdfs:comment "This used to say indicate that the feature is found before the ExactPosition. Use to indicate for example a cleavage site. The cleavage happens between two amino acids before one and after the other."^^xsd:string ;
       rdfs:domain :InBetweenPosition ;
       rdfs:range :ExactPosition .
 
 :begin
       rdf:type owl:ObjectProperty ;
+      rdfs:comment "The inclusive begin position of an position. Also known as start."^^xsd:string ;
       rdfs:range :Position .
 
 :end  rdf:type owl:ObjectProperty ;
+      rdfs:comment "The inclusive end of the position."^^xsd:string ;
       rdfs:range :Position .
 
 :location
       rdf:type owl:ObjectProperty ;
+      rdfs:comment "The linking predicate between the annotated resource and the description of a Region or a Position. e.g. 'active site' 'location' is 'position 3'"^^xsd:string ;
       rdfs:range
               [ rdf:type owl:Class ;
                 owl:unionOf (:Region :Position)
@@ -164,7 +168,7 @@
 
 :position
       rdf:type owl:DatatypeProperty ;
-      rdfs:comment "A position on the first amino acid or nucleotide of a sequence has the value 1. i.e. Python style array indexing not java/C style."^^xsd:string , "The positionValue is the offset along the reference where this position is found. Thus the only the positionValue in combination with the reference determines where a Position is."^^xsd:string ;
+      rdfs:comment "The positionValue is the offset along the reference where this position is found. Thus the only the positionValue in combination with the reference determines where a Position is."^^xsd:string , "A position on the first amino acid or nucleotide of a sequence has the value 1. i.e. Python style array indexing not java/C style."^^xsd:string ;
       rdfs:domain :ExactPosition ;
       rdfs:range xsd:integer .
 
