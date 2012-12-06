@@ -157,6 +157,7 @@
 
 :location
       rdf:type owl:ObjectProperty ;
+      rdfs:comment "This is the link between the concept that you are annotating the location of and its Range or Position. e.g. when annotating the region that describes an exon, the exon would be the subject and the region would be the object of the triple."^^xsd:string ;
       rdfs:range
               [ rdf:type owl:Class ;
                 owl:unionOf (:Region :Position)
