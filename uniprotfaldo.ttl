@@ -17,7 +17,7 @@
 
 :ProteinPosition
       rdf:type rdfs:Class ;
-      rdfs:comment "An uniprot feature is always described in relation to a UniProt sequence which is an amino acid. This can never be a StrandedPosition"^^xsd:string ;
+      rdfs:comment "An UniProt feature is always described in relation to a UniProt sequence which is an amino acid. This can never be a stranded position."^^xsd:string ;
       rdfs:subClassOf owl:Thing ;
       rdfs:subClassOf
               [ rdf:type owl:Restriction ;
