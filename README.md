@@ -14,7 +14,9 @@ such as the Sequence Ontology or the UniProt core ontolgy.
 Examples
 --------
 
-### A genomic region where we know exactly where it starts and ends on the reference genome sequence
+### Known positions
+
+A genomic region where we know exactly where it starts and ends on the reference genome sequence:
 
 ```turtle
 <_:1> a :Region ;
@@ -47,7 +49,7 @@ Examples
            :reference ddbj:XXXDSDS .
 ```
 
-### A genomic region where the begin is on one contig and the end on an other
+A genomic region where the begin is on one contig and the end on an other:
 
 ```turtle
 <_:2> a :Region
