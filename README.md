@@ -65,9 +65,9 @@ Examples
 
 ### Probabilistic (or fuzzy) positions
 
-Here we have a begin position that could be on one of two nucleotides, and this case we have
-a probablisitic model that says that the feature could start at position 1 or 2. Its just that position2 
-has a likelihood of 0.9 and position 1 a likelihood of 0.1. 
+Here we have a begin position that could be one of two nucleotides. This case uses
+a probablisitic model that denotes that the feature could start at both positions 1 or 2. Position 1
+has a likelihood of 0.1 and position 2 has a likelihood of 0.9. 
 
 ```turtle
 <_:3> a :Region ;
