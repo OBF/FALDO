@@ -1,16 +1,20 @@
 FALDO
+=====
 
-A simple ontology to describe sequence feature positions and regiongs as found in 
-GFF3, DBBJ,EMBL,GenBank files, UniProt, and many other bioinformatics resources.
+FALDO is the Feature Annotation Location Description Ontology.
+It is a simple ontology to describe sequence feature positions and regions as found in 
+[GFF30(http://www.sequenceontology.org/gff3.shtml), [DBBJ](http://www.ddbj.nig.ac.jp),
+[EMBL](http://www.embl.org), [GenBank](http://www.ncbi.nlm.nih.gov/genbank) files,
+[UniProt](http://www.uniprot.org), and many other bioinformatics resources.
 
-The aim of this mini ontology is to only describe the position of a region or a feature.
-It does not aim to describe features or regions itself. 
-Instead it depends on resources such as the Sequence Ontology or the UniProt core ontolgy.
+The aim of this ontology is to describe the position of a sequence region or a feature.
+It does not aim to describe features or regions itself, but instead depends on resources
+such as the Sequence Ontology or the UniProt core ontolgy.
 
 Examples
+--------
 
-
-h3. An region where we know exactly where it starts and ends on the reference sequence.
+### A genomic region where we know exactly where it starts and ends on the reference genome sequence
 
 ```turtle
 <_:1> a :Region ;
@@ -24,7 +28,7 @@ h3. An region where we know exactly where it starts and ends on the reference se
             :reference ddbj:XXXDSDS .
 
 <_1e> a :Position ; 
-           a :ApproximatlyKnownPosition ;
+           a :FuzzyPosition ;
            a :ForwardStrandPosition ;
            :begin <_:1ea> ;
            :end <_:1eb> ;
@@ -43,7 +47,7 @@ h3. An region where we know exactly where it starts and ends on the reference se
            :reference ddbj:XXXDSDS .
 ```
 
-h3. A Region where the begin is on one contig and the end on an other.
+### A genomic region where the begin is on one contig and the end on an other
 
 ```turtle
 <_:2> a :Region
@@ -59,7 +63,7 @@ h3. A Region where the begin is on one contig and the end on an other.
            :reference <_:contig29> .
 ```
 
-h3. Propable position
+### Probabilistic (or fuzzy) positions
 
 Here we have a begin position that could be on one of two nucleotides, and this case we have
 a probablisitic model that says that the feature could start at position 1 or 2. Its just that position2 
