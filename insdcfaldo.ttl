@@ -1,0 +1,42 @@
+# baseURI: http://example.org/insdc
+# imports: http://biohackathon.org/resource/faldo
+
+@prefix :        <http://example.org/insdc#> .
+@prefix faldo:   <http://biohackathon.org/resource/faldo#> .
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+
+<http://example.org/insdc>
+      rdf:type owl:Ontology ;
+      owl:imports <http://biohackathon.org/resource/faldo> ;
+      owl:versionInfo "Created with TopBraid Composer"^^xsd:string .
+
+:bagOfRegionsExample
+      rdf:type faldo:BagOfRegions ;
+      rdf:_1  :region1 ;
+      rdf:_2  :region2 ;
+      rdfs:label "Bag of regions"^^xsd:string ;
+      rdfs:member :region1 , :region2 .
+
+:joinRegionCDS
+      rdf:type owl:Thing .
+
+:region1
+      rdf:type owl:Thing , faldo:Region ;
+      rdfs:label "region1"^^xsd:string .
+
+:region2
+      rdf:type owl:Thing , faldo:Region ;
+      rdfs:label "region2"^^xsd:string .
+
+:sequenceOfRegions
+      rdf:type faldo:ListOfRegions , rdf:Seq ;
+      rdf:_1  :region1 ;
+      rdf:_2  :region2 ;
+      rdfs:label "sequence of regions"^^xsd:string .
+
+:singleRegionCDS
+      rdf:type owl:Thing ;
+      faldo:location :region1 .
