@@ -12,12 +12,31 @@
       spin:imports <http://topbraid.org/spin/spinowl> , <http://topbraid.org/spin/rdfsplus> , <http://topbraid.org/spin/owlrl-all> ;
       owl:versionInfo "Created with TopBraid Composer"^^xsd:string .
 
+:BagOfRegions
+      rdf:type owl:Class ;
+      rdfs:comment "Used to describe a location that consists out of a number of Regions but where the order is not known. e.g. the odly named order keyword in a INSDC fle."^^xsd:string ;
+      rdfs:seeAlso <http://www.insdc.org/files/feature_table.html> ;
+      rdfs:subClassOf rdf:Bag , :CollectionOfRegions .
+
 :BothStrandsPosition
       rdf:type owl:Class ;
       rdfs:comment "The 'both strands position' means that the region spans both strands instead of one. In GFF3 displayed as 0. This does not mean that the position is one or the other strand, but that is best described as being on both."^^xsd:string ;
       rdfs:label "Both strands"^^xsd:string ;
       rdfs:subClassOf :StrandedPosition ;
       owl:disjointWith :ForwardStrandPosition , :ReverseStrandPosition .
+
+:CollectionOfRegions
+      rdf:type owl:Class ;
+      rdfs:comment "Sometimes a location of a feature is defined by a collection of regions e.g. INSDC join and order. One should always try to model the semantics more accuratly these are fallback options to encode legacy data."^^xsd:string ;
+      rdfs:subClassOf owl:Thing ;
+      rdfs:subClassOf
+              [ rdf:type owl:Restriction ;
+                owl:allValuesFrom
+                        [ rdf:type owl:Class ;
+                          owl:unionOf (:Region :CollectionOfRegions)
+                        ] ;
+                owl:onProperty rdfs:member
+              ] .
 
 :ExactPosition
       rdf:type owl:Class ;
@@ -85,6 +104,12 @@
                           ])
               ] ;
       owl:disjointWith :OneOfPosition , :StrandedPosition , :ExactPosition , :InBetweenPosition .
+
+:ListOfRegions
+      rdf:type owl:Class ;
+      rdfs:comment "Should be used when the location of a region is defined by an ordered list of Regions. However, do try to avoid using these types and use more explicit semantics about why the order is important."^^xsd:string , "As an ordered list of regions (but the list might not be complete)"^^xsd:string ;
+      rdfs:seeAlso <http://www.insdc.org/files/feature_table.html> ;
+      rdfs:subClassOf rdf:Seq , :CollectionOfRegions .
 
 :OneOfPosition
       rdf:type owl:Class ;
@@ -163,7 +188,7 @@
       rdfs:comment "This is the link between the concept whose location you are annotating the and its range or position. For example, when annotating the region that describes an exon, the exon would be the subject and the region would be the object of the triple or: 'active site' 'location' [is] 'position 3'."^^xsd:string ;
       rdfs:range
               [ rdf:type owl:Class ;
-                owl:unionOf (:Region :Position)
+                owl:unionOf (:CollectionOfRegions :Region :Position)
               ] .
 
 :position
