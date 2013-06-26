@@ -65,7 +65,32 @@ A genomic region where the begin is on one contig and the end on an other:
            :reference <_:contig29> .
 ```
 
-### Probabilistic (or fuzzy) positions
+### Fuzy positions
+
+Assume we have a protein aminoacid sequence "ACK" and a massspectrometry experiment says the amino acid 
+A or C is glycosylated. But we don't know which of the two it is. We do know it is not "K".
+
+
+
+```turtle
+<_:glysolyatedAminoAcid>            a 	glyco:glycosylated_AA ;
+				faldo:location <_:fuzzyPosition> .
+_:fuzzyPosition 	a 	faldo:FuzzyPosition ,
+				faldo:InRangePosition ;
+			faldo:begin <_:exactBegin> ;
+			faldo:end   <_:exactEnd> .
+<_:faldoBegin>		a	faldo:ExactPosition ;
+			faldo:position 1 ;
+			faldo:refence <_:sequence> .
+<_:faldoEnd>		a	faldo:ExactPosition ;
+			faldo:position 2 ;
+			faldo:refence <_:sequence> .
+<_:sequence> a uniprot:Sequence ;
+           rdf:value "ACK" .
+```
+In the above example uniprot and glyco refer to the glycoprotein and uniprot schema's.
+
+### Probabilistic fuzzy positions
 
 Here we have a begin position that could be one of two nucleotides. This case uses
 a probablisitic model that denotes that the feature could start at both positions 1 or 2. Position 1
