@@ -195,7 +195,12 @@
       rdf:type owl:DatatypeProperty ;
       rdfs:comment "The position value is the offset along the reference where this position is found. Thus the only the position value in combination with the reference determines where a position is."^^xsd:string , "A position on the first amino acid or nucleotide of a sequence has the value 1, i.e. Python style array indexing as opposed to Java/C indexes."^^xsd:string ;
       rdfs:domain :ExactPosition ;
-      rdfs:range xsd:integer .
+      rdfs:range [ rdf:type rdfs:Datatype ;
+                   owl:onDatatype xsd:integer ;
+                   owl:withRestrictions ( [ xsd:minInclusive 1
+                                          ]
+                                        )
+                 ] .
 
 :reference
       rdf:type owl:ObjectProperty ;
