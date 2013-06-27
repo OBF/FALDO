@@ -29,7 +29,7 @@ A genomic region where we know exactly where it starts and ends on the reference
             :position "1"^^xsd:int ;
             :reference ddbj:XXXDSDS .
 
-<_1e> a :Position ; 
+<_:1e> a :Position ; 
            a :FuzzyPosition ;
            a :ForwardStrandPosition ;
            :begin <_:1ea> ;
@@ -59,10 +59,53 @@ A genomic region where the begin is on one contig and the end on an other:
             a :ExactlyKnownPosition ;
             :position "1"^^xsd:int ;
             :reference <_:contig17> .
-<_2e> a :Position; 
+<_:2e> a :Position; 
            a :ExactlyKnownPosition ;
            :position "4"^^xsd:int ;
            :reference <_:contig29> .
+```
+
+A rather curcial difference with most begin and end conventions here they are biological begin and end. 
+Not smallest number is start and the larger number is end.
+
+```
+----->increasing count of position
+123456789012345678901234567890
+actgacgactagatcgatcgatcgactagt
+
+tgactgctgatctagctagctagctgatca
+     <----- direction of transcription 
+     |    |--transcription on reverse strand begins here
+     |--transcription on reverse strand ends here      
+```
+
+For example the *cheY* gene in
+Escherichia coli str. K-12 substr. [MG1655](http://www.ncbi.nlm.nih.gov/nuccore/NC_000913.2)
+is described in the INSDC feature table as `complement(1965072..1965461)}`,
+which is 390 base pairs using inclusive one-based counting. In FALDO
+```turtle
+<_:geneCheY> a so:Gene ;
+           rdfs:label "cheY" ;
+           faldo:location <_:example> ;
+
+uniprot:P0AE67 up:encodedBy <_:geneCheY> .
+
+<_:example> a :Region ;
+           :begin <_:example_b> ;
+           :end <_:example_e> .
+
+<_:example_b> a :Position ; 
+           a :ExactlyKnownPosition ;
+           a :ReverseStrandPosition ;
+            :position "1965461"^^xsd:int ; #see the end is smaller than the begin
+            :reference refseq:NC_000913.2 .
+
+
+<_:example_e> a :Position ; 
+           a :ExactlyKnownPosition ;
+           a :ReverseStrandPosition ;
+            :position "1965072"^^xsd:int ; #see the end is smaller than the begin
+            :reference refseq:NC_000913.2 .
 ```
 
 =======
@@ -76,7 +119,7 @@ A or C is glycosylated. But we don't know which of the two it is. We do know it 
 ```turtle
 <_:glysolyatedAminoAcid>            a 	glyco:glycosylated_AA ;
 				faldo:location <_:fuzzyPosition> .
-_:fuzzyPosition 	a 	faldo:FuzzyPosition ,
+<_:fuzzyPosition> 	a 	faldo:FuzzyPosition ,
 				faldo:InRangePosition ;
 			faldo:begin <_:exactBegin> ;
 			faldo:end   <_:exactEnd> .
