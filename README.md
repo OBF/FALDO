@@ -81,7 +81,7 @@ tgactgctgatctagctagctagctgatca
 
 For example the *cheY* gene in
 Escherichia coli str. K-12 substr. [MG1655](http://www.ncbi.nlm.nih.gov/nuccore/NC_000913.2)
-is described in the INSDC feature table as `complement(1965072..1965461)}`,
+is described in the INSDC feature table as `complement(1965072..1965461)`,
 which is 390 base pairs using inclusive one-based counting. In FALDO
 ```turtle
 <_:geneCheY> a so:Gene ;
