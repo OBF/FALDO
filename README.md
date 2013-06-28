@@ -92,3 +92,9 @@ has a likelihood of 0.1 and position 2 has a likelihood of 0.9.
             :position "2"^^xsd:int ;
             :reference <_:1Strand> .
 ```
+
+License
+-------
+
+[![Creative Commons License](http://i.creativecommons.org/l/by/3.0/88x31.png)](http://creativecommons.org/licenses/by/3.0/) This work is licensed under a [Creative Commons Attribution 3.0 Unported License](http://creativecommons.org/licenses/by/3.0/).
+
