@@ -1,16 +1,44 @@
 # baseURI: http://example.org/insdc
+# imports: file:/Users/bolleman/git/INSDC/insdc.ttl
 # imports: http://biohackathon.org/resource/faldo
+# imports: http://spinrdf.org/sp
+# imports: http://spinrdf.org/spin
 
 @prefix :        <http://example.org/insdc#> .
 @prefix faldo:   <http://biohackathon.org/resource/faldo#> .
+@prefix insdc:   <http://insdc.org/owl/> .
 @prefix owl:     <http://www.w3.org/2002/07/owl#> .
 @prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sp:      <http://spinrdf.org/sp#> .
+@prefix spin:    <http://spinrdf.org/spin#> .
 @prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+
+faldo:begin
+      owl:inverseOf faldo:beginOf .
+
+faldo:end
+      owl:inverseOf faldo:endOf .
+
+faldo:location
+      owl:inverseOf faldo:locationOf .
+
+faldo:locationOf
+      rdf:type owl:ObjectProperty ;
+      rdfs:label "location of"^^xsd:string ;
+      owl:inverseOf faldo:location .
+
+faldo:positionOf
+      rdf:type owl:DatatypeProperty ;
+      owl:inverseOf faldo:position .
+
+faldo:reference
+      owl:inverseOf insdc:reference .
 
 <http://example.org/insdc>
       rdf:type owl:Ontology ;
-      owl:imports <http://biohackathon.org/resource/faldo> ;
+      spin:imports <http://topbraid.org/spin/spinowl> , <http://topbraid.org/spin/rdfsplus> , <http://topbraid.org/spin/owlrl-all> ;
+      owl:imports <file:/Users/bolleman/git/INSDC/insdc.ttl> , <http://biohackathon.org/resource/faldo> , <http://spinrdf.org/spin> , <http://spinrdf.org/sp> ;
       owl:versionInfo "Created with TopBraid Composer"^^xsd:string .
 
 :bagOfRegionsExample
@@ -18,21 +46,44 @@
       rdf:_1  :region1 ;
       rdf:_2  :region2 ;
       rdfs:label "Bag of regions"^^xsd:string ;
-      rdfs:member :region1 , :region2 .
+      rdfs:member :region2 , :region1 .
+
+:exampleEntry
+      rdf:type insdc:Entry ;
+      insdc:feature :exampleFeature ;
+      insdc:sequence :exampleSequence .
+
+:exampleFeature
+      rdf:type insdc:Feature ;
+      rdfs:label "Just an example feature"^^xsd:string ;
+      faldo:location :exampleLocation .
+
+:exampleLocation
+      rdf:type faldo:Region ;
+      rdfs:label "example location"^^xsd:string ;
+      faldo:begin :examplePosition .
+
+:examplePosition
+      rdf:type faldo:Position , insdc:Position ;
+      rdfs:label "example position"^^xsd:string .
+
+:exampleSequence
+      rdf:type insdc:Sequence ;
+      rdfs:label "example sequence"^^xsd:string .
 
 :joinRegionCDS
       rdf:type owl:Thing .
 
 :region1
-      rdf:type owl:Thing , faldo:Region ;
+      rdf:type faldo:Region , owl:Thing ;
       rdfs:label "region1"^^xsd:string .
 
 :region2
-      rdf:type owl:Thing , faldo:Region ;
+      rdf:type faldo:Region , owl:Thing ;
       rdfs:label "region2"^^xsd:string .
 
 :sequenceOfRegions
-      rdf:type faldo:ListOfRegions , rdf:Seq ;
+      rdf:type rdf:Seq , faldo:ListOfRegions ;
       rdf:_1  :region1 ;
       rdf:_2  :region2 ;
       rdfs:label "sequence of regions"^^xsd:string .
@@ -40,3 +91,31 @@
 :singleRegionCDS
       rdf:type owl:Thing ;
       faldo:location :region1 .
+
+insdc:Position
+      rdf:type owl:Class ;
+      rdfs:label "Position in a insdc record"^^xsd:string ;
+      rdfs:subClassOf faldo:Position .
+
+insdc:featureOf
+      rdf:type owl:ObjectProperty ;
+      rdfs:domain insdc:Feature ;
+      rdfs:range insdc:Entry ;
+      owl:inverseOf insdc:feature .
+
+insdc:reference
+      rdf:type owl:ObjectProperty ;
+      rdfs:label "INSDC reference "^^xsd:string ;
+      rdfs:subPropertyOf faldo:reference ;
+      owl:propertyChainAxiom
+              (faldo:locationOf insdc:featureOf insdc:sequence) , (faldo:beginOf faldo:locationOf insdc:featureOf insdc:sequence) , (faldo:endOf faldo:locationOf insdc:featureOf insdc:sequence) .
+
+insdc:sequence
+      owl:inverseOf insdc:sequenceOf ;
+      owl:propertyChainAxiom
+              (faldo:reference faldo:position faldo:location insdc:feature) .
+
+insdc:sequenceOf
+      rdf:type owl:ObjectProperty ;
+      rdfs:label "sequence of"^^xsd:string ;
+      owl:inverseOf insdc:sequence .
