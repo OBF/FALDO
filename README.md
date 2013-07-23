@@ -26,7 +26,7 @@ A genomic region where we know exactly where it starts and ends on the reference
 <_:1b> a :Position ; 
            a :ExactlyKnownPosition ;
            a :ForwardStrandPosition ;
-            :position "1"^^xsd:int ;
+            :position "1"^^xsd:integer ;
             :reference ddbj:XXXDSDS .
 
 <_1e> a :Position ; 
@@ -39,13 +39,13 @@ A genomic region where we know exactly where it starts and ends on the reference
 <_:1ea> a :Position ;
         a :ExactlyKnownPosition ;
         a :ForwardStrandPosition ;
-           :position "3"^^xsd:int ;
+           :position "3"^^xsd:integer ;
            :reference ddbj:XXXDSDS .
 
 <_:1eb> a :Position ;
         a :ExactlyKnownPosition ;
         a :ForwardStrandPosition ;
-           :position "7"^^xsd:int ;
+           :position "7"^^xsd:integer ;
            :reference ddbj:XXXDSDS .
 ```
 
@@ -57,11 +57,11 @@ A genomic region where the begin is on one contig and the end on an other:
            :end <_:2e> .
 <_:2b> a :Position ; 
             a :ExactlyKnownPosition ;
-            :position "1"^^xsd:int ;
+            :position "1"^^xsd:integer ;
             :reference <_:contig17> .
 <_2e> a :Position; 
            a :ExactlyKnownPosition ;
-           :position "4"^^xsd:int ;
+           :position "4"^^xsd:integer ;
            :reference <_:contig29> .
 ```
 
@@ -85,11 +85,11 @@ has a likelihood of 0.1 and position 2 has a likelihood of 0.9.
            faldop:location <_:3bb2> .
 <_:3bb1> a :Position ;
             a :ExactlyKnown ;
-            :position "1"^^xsd:int ;
+            :position "1"^^xsd:integer ;
             :reference <_:1Strand> .
 <_:3bb2> a :Position ;
             a :ExactlyKnown ;
-            :position "2"^^xsd:int ;
+            :position "2"^^xsd:integer ;
             :reference <_:1Strand> .
 ```
 
