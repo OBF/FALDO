@@ -27,8 +27,8 @@ A genomic region where we know exactly where it starts and ends on the reference
 
 <_:1b> a faldo:Position ; 
            a faldo:ExactPosition ;
-           a :ForwardStrandPosition ;
-            faldo:position "1"^^xsd:int ;
+           a faldo:ForwardStrandPosition ;
+            faldo:position "1"^^xsd:integer ;
             faldo:reference ddbj:XXXDSDS .
 
 <_:1e> a faldo:Position ; 
@@ -40,14 +40,14 @@ A genomic region where we know exactly where it starts and ends on the reference
 
 <_:1ea> a faldo:Position ;
         a faldo:ExactPosition ;
-        a :ForwardStrandPosition ;
-           faldo:position "3"^^xsd:int ;
+        a faldo:ForwardStrandPosition ;
+           faldo:position "3"^^xsd:integer ;
            faldo:reference ddbj:XXXDSDS .
 
 <_:1eb> a faldo:Position ;
         a faldo:ExactPosition ;
-        a :ForwardStrandPosition ;
-           faldo:position "7"^^xsd:int ;
+        a faldo:ForwardStrandPosition ;
+           faldo:position "7"^^xsd:integer ;
            faldo:reference ddbj:XXXDSDS .
 ```
 
@@ -59,11 +59,11 @@ A genomic region where the begin is on one contig and the end on an other:
            faldo:end <_:2e> .
 <_:2b> a faldo:Position ; 
             a faldo:ExactPosition ;
-            faldo:position "1"^^xsd:int ;
+            faldo:position "1"^^xsd:integer ;
             faldo:reference <_:contig17> .
 <_:2e> a faldo:Position; 
            a faldo:ExactPosition ;
-           faldo:position "4"^^xsd:int ;
+           faldo:position "4"^^xsd:integer ;
            faldo:reference <_:contig29> .
 ```
 
@@ -94,24 +94,23 @@ which is 390 base pairs using inclusive one-based counting. In FALDO
 uniprot:P0AE67 up:encodedBy <_:geneCheY> .
 
 <_:example> a faldo:Region ;
-           faldo:begin faldo:end <_:example_b> ;
+           faldo:begin <_:example_b> ;
            faldo:end <_:example_e> .
 
 <_:example_b> a faldo:Position ,
                 faldo:ExactPosition ,
                 faldo:ReverseStrandPosition ;
-            faldo:position "1965461"^^xsd:int ; #see the end is smaller than the begin
+            faldo:position "1965461"^^xsd:integer ; #see the end is smaller than the begin
             faldo:reference refseq:NC_000913.2 .
 
 
 <_:example_e> a faldo:Position ,
                 faldo:ExactPosition ,
                 faldo:ReverseStrandPosition ;
-            faldo:position "1965072"^^xsd:int ; #see the end is smaller than the begin
+            faldo:position "1965072"^^xsd:integer ; #see the end is smaller than the begin
             faldo:reference refseq:NC_000913.2 .
 ```
 
-=======
 ### Fuzy positions
 
 Assume we have a protein aminoacid sequence "ACK" and a massspectrometry experiment says the amino acid 
@@ -151,21 +150,20 @@ has a likelihood of 0.1 and position 2 has a likelihood of 0.9.
            faldop:posibilities(<_:3bp1>,<_:3bp2>) .
 
 <_:3bp1> a faldop:ProbablePosition ;
-           faldop:probability "0.1"^^xd:double ;
+           faldop:probability "0.1"^^xsd:double ;
            faldop:location <_:3bb1> .
 
 <_:3bp2> a faldop:ProbablePosition ;
-           faldop:probability "0.9"^^xd:double ;
+           faldop:probability "0.9"^^xsd:double ;
            faldop:location <_:3bb2> .
-
 <_:3bb1> a faldo:Position ,
            faldo:ExactPosition ;
-           faldo:position "1"^^xsd:int ;
+           faldo:position "1"^^xsd:integer ;
            faldo:reference <_:1Strand> .
 
 <_:3bb2> a faldo:Position ,
            faldo:ExactPosition ;
-           faldo:position "2"^^xsd:int ;
+           faldo:position "2"^^xsd:integer ;
            faldo:reference <_:1Strand> .
 ```
 
