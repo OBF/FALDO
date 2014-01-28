@@ -9,21 +9,23 @@
 
 <http://biohackathon.org/resource/faldo>
       rdf:type owl:Ontology ;
-      spin:imports <http://topbraid.org/spin/spinowl> , <http://topbraid.org/spin/rdfsplus> , <http://topbraid.org/spin/owlrl-all> ;
+      <http://purl.org/dc/terms/license>
+              <http://creativecommons.org/publicdomain/zero/1.0/> ;
+      spin:imports <http://topbraid.org/spin/owlrl-all> , <http://topbraid.org/spin/rdfsplus> , <http://topbraid.org/spin/spinowl> ;
       owl:versionInfo "Created with TopBraid Composer"^^xsd:string .
 
 :BagOfRegions
       rdf:type owl:Class ;
       rdfs:comment "Used to describe a location that consists of a number of Regions but where the order is not known. e.g. the oddly named order() keyword in a INSDC file."^^xsd:string ;
       rdfs:seeAlso <http://www.insdc.org/files/feature_table.html> ;
-      rdfs:subClassOf rdf:Bag , :CollectionOfRegions .
+      rdfs:subClassOf :CollectionOfRegions , rdf:Bag .
 
 :BothStrandsPosition
       rdf:type owl:Class ;
       rdfs:comment "The 'both strands position' indicates a region that is best described as being on 'both' strands of a double-stranded sequence, rather than one or the other."^^xsd:string ;
       rdfs:label "Both strands"^^xsd:string ;
       rdfs:subClassOf :StrandedPosition ;
-      owl:disjointWith :ForwardStrandPosition , :ReverseStrandPosition .
+      owl:disjointWith :ReverseStrandPosition , :ForwardStrandPosition .
 
 :CollectionOfRegions
       rdf:type owl:Class ;
@@ -48,14 +50,14 @@
                 owl:cardinality "1"^^xsd:nonNegativeInteger ;
                 owl:onProperty :position
               ] ;
-      owl:disjointWith :InBetweenPosition , :InRangePosition , :OneOfPosition .
+      owl:disjointWith :OneOfPosition , :InRangePosition , :InBetweenPosition .
 
 :ForwardStrandPosition
       rdf:type owl:Class ;
       rdfs:comment "The position is on the forward (positive, 5' to 3') strand. Shown as a '+' in GFF3 and GTF."^^xsd:string ;
       rdfs:label "Positive strand"^^xsd:string ;
       rdfs:subClassOf :StrandedPosition ;
-      owl:disjointWith :BothStrandsPosition , :ReverseStrandPosition .
+      owl:disjointWith :ReverseStrandPosition , :BothStrandsPosition .
 
 :FuzzyPosition
       rdf:type owl:Class ;
@@ -82,7 +84,7 @@
                                     "1"^^xsd:nonNegativeInteger
                           ])
               ] ;
-      owl:disjointWith :ExactPosition , :OneOfPosition , :InRangePosition .
+      owl:disjointWith :InRangePosition , :OneOfPosition , :ExactPosition .
 
 :InRangePosition
       rdf:type owl:Class ;
@@ -103,20 +105,20 @@
                             owl:onProperty :end
                           ])
               ] ;
-      owl:disjointWith :OneOfPosition , :StrandedPosition , :ExactPosition , :InBetweenPosition .
+      owl:disjointWith :InBetweenPosition , :ExactPosition , :StrandedPosition , :OneOfPosition .
 
 :ListOfRegions
       rdf:type owl:Class ;
-      rdfs:comment "Should be used when the location of a region is defined by an ordered list of Regions. However, try to avoid using these types in favor of using more explicit semantics about why the order is important."^^xsd:string , "As an ordered list of regions (but the list might not be complete)."^^xsd:string ;
+      rdfs:comment "As an ordered list of regions (but the list might not be complete)."^^xsd:string , "Should be used when the location of a region is defined by an ordered list of Regions. However, try to avoid using these types in favor of using more explicit semantics about why the order is important."^^xsd:string ;
       rdfs:seeAlso <http://www.insdc.org/files/feature_table.html> ;
-      rdfs:subClassOf rdf:Seq , :CollectionOfRegions .
+      rdfs:subClassOf :CollectionOfRegions , rdf:Seq .
 
 :OneOfPosition
       rdf:type owl:Class ;
       rdfs:comment "The position is known to be one of the more detailed positions listed by the location predicate."^^xsd:string ;
       rdfs:label "One of positions"^^xsd:string ;
       rdfs:subClassOf :FuzzyPosition ;
-      owl:disjointWith :InBetweenPosition , :InRangePosition , :ExactPosition .
+      owl:disjointWith :ExactPosition , :InRangePosition , :InBetweenPosition .
 
 :Position
       rdf:type owl:Class ;
@@ -154,7 +156,7 @@
       rdfs:comment "The position is on the reverse (complement, 3' to 5') strand of the sequence. Shown as '-' in GTF and GFF3."^^xsd:string ;
       rdfs:label "Negative strand"^^xsd:string ;
       rdfs:subClassOf :StrandedPosition ;
-      owl:disjointWith :ForwardStrandPosition , :BothStrandsPosition .
+      owl:disjointWith :BothStrandsPosition , :ForwardStrandPosition .
 
 :StrandedPosition
       rdf:type owl:Class ;
@@ -207,7 +209,7 @@
 
 :position
       rdf:type owl:DatatypeProperty ;
-      rdfs:comment "The position value is the offset along the reference where this position is found. Thus the only the position value in combination with the reference determines where a position is."^^xsd:string , "Denoted in 1-based closed coordinates, i.e. the position on the first amino acid or nucleotide of a sequence has the value 1."^^xsd:string ;
+      rdfs:comment "Denoted in 1-based closed coordinates, i.e. the position on the first amino acid or nucleotide of a sequence has the value 1."^^xsd:string , "The position value is the offset along the reference where this position is found. Thus the only the position value in combination with the reference determines where a position is."^^xsd:string ;
       rdfs:domain :ExactPosition ;
       rdfs:range
               [ rdf:type rdfs:Datatype ;
