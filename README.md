@@ -11,6 +11,8 @@ The aim of this ontology is to describe the position of a sequence region or a f
 It does not aim to describe features or regions itself, but instead depends on resources
 such as the Sequence Ontology or the UniProt core ontolgy.
 
+You can read more about it our [pre print describing FALDO](dx.doi.org/10.1101/002121)
+
 Examples
 --------
 
