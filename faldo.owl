@@ -21,7 +21,7 @@
      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
      xmlns:spin="http://spinrdf.org/spin#"
      xmlns:xml="http://www.w3.org/XML/1998/namespace">
-    <owl:Ontology rdf:about="http://biohackathon.org/resource/faldo">
+    <owl:Ontology rdf:about="http://biohackathon.org/resource/faldo#">
         <owl:versionInfo rdf:datatype="&xsd;string">Created with TopBraid Composer</owl:versionInfo>
         <terms:license rdf:resource="http://creativecommons.org/publicdomain/zero/1.0/"/>
         <spin:imports rdf:resource="http://topbraid.org/spin/owlrl-all"/>
