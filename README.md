@@ -111,7 +111,7 @@ uniprot:P0AE67 up:encodedBy <_:geneCheY> .
             faldo:reference refseq:NC_000913.2 .
 ```
 
-### Fuzy positions
+### Fuzzy positions
 
 Assume we have a protein aminoacid sequence "ACK" and a massspectrometry experiment says the amino acid 
 A or C is glycosylated. But we don't know which of the two it is. We do know it is not "K".
