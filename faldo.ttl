@@ -52,6 +52,20 @@
               ] ;
       owl:disjointWith :OneOfPosition , :InRangePosition , :InBetweenPosition .
 
+:N-TerminalPosition
+    rdf:type owl:Class ;
+    rdfs:subClassOf :ExactPosition ;
+    rdfs:comment "The position of the starting amino-acid a protein or polypeptide terminated by an amino acid with a free amine group (-NH2). The convention for writing peptide sequences is to put the N-terminus on the left and write the sequence from N- to C-terminus. Instances of this class are often used when the reference sequence is not complete "^^xsd:string ;
+    rdfs:seeAlso <http://en.wikipedia.org/wiki/N-terminus> ;
+    owl:disjointWith :C-TerminalPosition .
+
+:C-TerminalPosition 
+    rdf:type owl:Class ;
+    rdfs:subClassOf :ExactPosition ;
+    rdfs:comment "The C-terminus is the end of an amino acid chain (protein or polypeptide), terminated by a free carboxyl group (-COOH)."^^xsd:string ;
+    rdfs:seeAlso <http://en.wikipedia.org/wiki/C-terminus> ;
+    owl:disjointWith :N-TerminalPosition .
+
 :ForwardStrandPosition
       rdf:type owl:Class ;
       rdfs:comment "The position is on the forward (positive, 5' to 3') strand. Shown as a '+' in GFF3 and GTF."^^xsd:string ;
