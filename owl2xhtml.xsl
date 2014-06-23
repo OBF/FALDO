@@ -179,8 +179,8 @@ by Masahide Kanzaki, and from the OWL2HTML stylesheet (2), by Li Ding. We are ve
 			<body>
 				<xsl:apply-templates />
 				<div id="footer">
-                                    We would like to especially thank the organisers and funders of the <a href="http://www.biohackaton.org">BioHackathon</a> series of meetings for hosting the original discussions leading to FALDO 
-                                    Faldo is addittionaly supported by:
+                                    <p>We would like to especially thank the organisers and funders of the <a href="http://www.biohackaton.org">BioHackathon</a> series of meetings for hosting the original discussions leading to FALDO</p> 
+                                    <p>FALDO is addittionaly supported by:</p>
                                     <ul>
                                       <li><a href="http://biosciencedbc.jp/en/">National Bioscience Database Center (NBDC)</a> of <a href="http://www.jst.go.jp/">Japan Science and Technology Agency (JST)</a></li>
                                       <li><a href="http://dbcls.rois.ac.jp/en/">Database Center for Life Science (DBCLS)</a></li>
@@ -586,9 +586,8 @@ by Masahide Kanzaki, and from the OWL2HTML stylesheet (2), by Li Ding. We are ve
 	</xsl:template>
 	<xsl:template match="*" mode="attribute">
 		<xsl:for-each select="@*[local-name()!=lang]">
-			<tr>
-				<td>
-					<xsl:call-template name="url">
+			<sup>
+				<xsl:call-template name="url">
 						<xsl:with-param name="ns" select="namespace-uri()" />
 						<xsl:with-param name="name" select="local-name()" />
 					</xsl:call-template>
@@ -596,9 +595,20 @@ by Masahide Kanzaki, and from the OWL2HTML stylesheet (2), by Li Ding. We are ve
 						<xsl:with-param name="ns" select="''" />
 						<xsl:with-param name="name" select="." />
 					</xsl:call-template>
-				</td>
-			</tr>
+                        </sup>
 		</xsl:for-each>
+                 <xsl:if test="@rdf:datatype">
+                 
+		<xsl:for-each select="@rdf:datatype">
+                   <sup>
+                       <a href=".">
+                        <xsl:call-template name="prettyUrl">
+                          <xsl:with-param name="name" select="."/>
+                        </xsl:call-template>
+                      </a>
+                     </sup>
+		</xsl:for-each>
+		</xsl:if>
 	</xsl:template>
 	<xsl:template match="*" mode="child">
 		<tr>
@@ -617,13 +627,10 @@ by Masahide Kanzaki, and from the OWL2HTML stylesheet (2), by Li Ding. We are ve
 						<xsl:apply-templates select="*" mode="restriction" />
 					</xsl:when>
 					<xsl:when test="@*">
-						<xsl:value-of select='text()' />
+						"<xsl:value-of select='text()' />"
 						<xsl:if test="@xml:lang">@<xsl:apply-templates select="@xml:lang" mode="resource" />
 						</xsl:if>
-						<ul>
-							<xsl:text> </xsl:text>
-							<xsl:apply-templates select="." mode="attribute" />
-						</ul>
+						<xsl:apply-templates select="." mode="attribute" />
 					</xsl:when>
 					<xsl:otherwise>
 						<xsl:value-of select='text()' />
@@ -649,7 +656,7 @@ by Masahide Kanzaki, and from the OWL2HTML stylesheet (2), by Li Ding. We are ve
                                                                                 </xsl:if>
 										<xsl:apply-templates select="*" mode="restriction" />
 										<xsl:if test="position() != last()">
-											or
+											<em>or</em><br />
 										</xsl:if>
 									</xsl:for-each>
 								</xsl:when>
@@ -664,33 +671,42 @@ by Masahide Kanzaki, and from the OWL2HTML stylesheet (2), by Li Ding. We are ve
 								</xsl:when>
 								<xsl:when test="owl:Class/owl:unionOf[@rdf:parseType]">
 									<xsl:for-each select="owl:Class/owl:unionOf[@rdf:parseType]/child::*">
-                                                                                <br />
+                                                                                <xsl:if test="position() = 1">
+                                                                                        <br/>
+                                                                                </xsl:if>
 										<span class="indent"><a href="#{@rdf:about}">
 											<xsl:value-of select="@rdf:about" />
 										</a></span>
-										<xsl:if test="position() != last()">
-											or
+										<xsl:if test="position() != 1">
+											<br /><em>or</em>
 										</xsl:if>
+										<br />
 									</xsl:for-each>
 								</xsl:when>
 								<xsl:when test="owl:Class/owl:unionOf/rdf:Description">
                                                                         <xsl:for-each select="owl:Class/owl:unionOf/descendant::*/rdf:first">
-                                                                                <br />
+                                                                                <xsl:if test="position() = 1">
+                                                                                        <br/>
+                                                                                </xsl:if>
                                                                                 <span class="indent"><xsl:apply-templates select="." mode="resource" /></span>
                                                                                 <xsl:if test="position() != last()">
-                                                                                        or
+                                                                                        <br /><em>or</em>
                                                                                 </xsl:if>
+                                                                                <br />
                                                                         </xsl:for-each>
                                                                 </xsl:when>
 								<xsl:otherwise>
 									<xsl:for-each select="owl:Class/owl:unionOf/child::*">
-                                                                                <br />
+                                                                                <xsl:if test="position() = 1">
+                                                                                        <br/>
+                                                                                </xsl:if>
 										<span class="indent"><a href="{@rdf:about}">
 											<xsl:value-of select="@rdf:about" />
 										</a></span>
 										<xsl:if test="position() != last()">
-											or
+											<br /><em>or</em>
 										</xsl:if>
+										<br />
 									</xsl:for-each>
 								</xsl:otherwise>
 							</xsl:choose>
