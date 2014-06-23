@@ -174,3 +174,17 @@ License
 
 [![Creative Commons License](http://creativecommons.org/images/deed/nolaw.png)](http://creativecommons.org/publicdomain/zero/1.0/) This work is licensed under a [Creative Commons Zero 1.0 Public Domain Dedication](http://creativecommons.org/publicdomain/zero/1.0/).
 
+
+###Conversion into different RDF/XML
+FALDO being maintained in faldo.ttl  can be converted into RDF/XML using for example the rapper tools.
+
+```
+rapper -i turtle -o rdfxml-abbrev faldo.ttl > faldo.rdf
+```
+
+It can also be converted into rdfxml that can be transformed with the owl2xhtml.xsl stylesheet into a documentation webpage.
+For that the following code is helpfull.
+
+```
+rapper -i turtle -o rdfxml-abbrev faldo.ttl | sed 's/<?xml version="1.0" encoding="utf-8"?>/<?xml version="1.0" encoding="utf-8"?>\n\<\?xml-stylesheet href\=\"owl2xhtml.xsl\" type\=\"text\/xsl\"\?>/;t' > faldo.rdf
+```
