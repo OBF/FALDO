@@ -234,7 +234,7 @@ by Masahide Kanzaki, and from the OWL2HTML stylesheet (2), by Li Ding. We are ve
                             </a>
                     </td>
                     <td>
-                            <select onChange="window.location.hash = $('naviClass').value"
+                            <select onChange="window.location.hash = document.getElementById('naviClass').value"
                                             id="naviClass"
                                     >
                                     <xsl:apply-templates select="$nodeset-class" mode="menu">
@@ -261,7 +261,7 @@ by Masahide Kanzaki, and from the OWL2HTML stylesheet (2), by Li Ding. We are ve
                             </a>
                     </td>
                     <td>
-                            <select onChange="window.location.hash = $('navi3').value"
+                            <select onChange="window.location.hash = document.getElementById('navi3').value"
                                     id="navi3"
                             >
                                     <xsl:apply-templates select="$nodeset-property-object" mode="menu" />
@@ -277,7 +277,7 @@ by Masahide Kanzaki, and from the OWL2HTML stylesheet (2), by Li Ding. We are ve
                             </a>
                     </td>
                     <td>
-                            <select onChange="window.location.hash = window.location.hash = $('navi4').value"
+                            <select onChange="window.location.hash = window.location.hash = document.getElementById('navi4').value"
                                             id="navi4"
                                     >
                                             <xsl:apply-templates select="$nodeset-property-datatype" mode="menu">
@@ -295,7 +295,7 @@ by Masahide Kanzaki, and from the OWL2HTML stylesheet (2), by Li Ding. We are ve
                             </a>
                     </td>
                     <td>
-                            <select onChange="window.location.hash = window.location.hash = $('navi5').value"
+                            <select onChange="window.location.hash = window.location.hash = document.getElementById('navi5').value"
                                             id="navi5"
                                     >
                                             <xsl:apply-templates select="$nodeset-individual" mode="menu">
@@ -367,7 +367,7 @@ by Masahide Kanzaki, and from the OWL2HTML stylesheet (2), by Li Ding. We are ve
 		
 			<xsl:choose>
 				<xsl:when test="@rdf:about">
-					<option value="{@rdf:about}">
+					<option value="{substring-after(@rdf:about, '#')}">
 						<xsl:call-template name="prettyUrl">
 							<xsl:with-param name="name" select="@rdf:about"/>
 						</xsl:call-template>
@@ -441,7 +441,7 @@ by Masahide Kanzaki, and from the OWL2HTML stylesheet (2), by Li Ding. We are ve
 			<tbody>
 				<xsl:if test="string-length($ref)>0">
 					<tr>
-						<th >
+						<th id="{substring-after(@rdf:about, '#')}">
 							<xsl:choose>
 								<xsl:when test="@rdf:ID">
 									<a><xsl:value-of select="@rdf:ID" /></a>
