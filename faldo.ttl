@@ -50,7 +50,8 @@
                 owl:cardinality "1"^^xsd:nonNegativeInteger ;
                 owl:onProperty :position
               ] ;
-      owl:disjointWith :OneOfPosition , :InRangePosition , :InBetweenPosition .
+      owl:disjointWith :OneOfPosition , :InRangePosition , :InBetweenPosition ;
+      owl:hasKey (:position :reference) . 
 
 :N-TerminalPosition
     rdf:type owl:Class ;
