@@ -186,5 +186,5 @@ It can also be converted into rdfxml that can be transformed with the owl2xhtml.
 For that the following code is helpfull.
 
 ```
-rapper -i turtle -o rdfxml-abbrev faldo.ttl | sed 's/<?xml version="1.0" encoding="utf-8"?>/<?xml version="1.0" encoding="utf-8"?>\n\<\?xml-stylesheet href\=\"owl2xhtml.xsl\" type\=\"text\/xsl\"\?>/;t' > faldo.rdf
+xsltproc owl2xhtml.xsl faldo.rdf > faldo.html
 ```
