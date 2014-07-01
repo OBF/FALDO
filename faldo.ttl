@@ -164,7 +164,8 @@
                             owl:qualifiedCardinality
                                     "1"^^xsd:nonNegativeInteger
                           ])
-              ] .
+              ] ;
+      owl:hasKey (:begin :end) .
 
 :ReverseStrandPosition
       rdf:type owl:Class ;
