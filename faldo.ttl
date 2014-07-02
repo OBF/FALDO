@@ -12,7 +12,7 @@
       <http://purl.org/dc/terms/license>
               <http://creativecommons.org/publicdomain/zero/1.0/> ;
       spin:imports <http://topbraid.org/spin/owlrl-all> , <http://topbraid.org/spin/rdfsplus> , <http://topbraid.org/spin/spinowl> ;
-      owl:versionInfo "Created with TopBraid Composer"^^xsd:string .
+      owl:versionInfo "Created at the Biohackathon 2012 and 2013"^^xsd:string .
 
 :BagOfRegions
       rdf:type owl:Class ;
