@@ -23,30 +23,30 @@ The examples in turtle avoid declaring prefixes for space reasons.
 A genomic region where we know exactly where it starts and ends on the reference genome sequence:
 
 ```turtle
-<_:1> a faldo:Region ;
-           faldo:begin <_:1b> ;
-           faldo:end <_:1e> .
+_:1 a faldo:Region ;
+           faldo:begin _:1b ;
+           faldo:end _:1e .
 
-<_:1b> a faldo:Position ; 
+_:1b a faldo:Position ; 
            a faldo:ExactPosition ;
            a faldo:ForwardStrandPosition ;
             faldo:position "1"^^xsd:integer ;
             faldo:reference ddbj:XXXDSDS .
 
-<_:1e> a faldo:Position ; 
+_:1e a faldo:Position ; 
            a :FuzzyPosition ;
            a :ForwardStrandPosition ;
-           faldo:begin <_:1ea> ;
-           faldo:end <_:1eb> ;
+           faldo:begin _:1ea ;
+           faldo:end _:1eb ;
            faldo:reference ddbj:XXXDSDS .
 
-<_:1ea> a faldo:Position ;
+_:1ea a faldo:Position ;
         a faldo:ExactPosition ;
         a faldo:ForwardStrandPosition ;
            faldo:position "3"^^xsd:integer ;
            faldo:reference ddbj:XXXDSDS .
 
-<_:1eb> a faldo:Position ;
+_:1eb a faldo:Position ;
         a faldo:ExactPosition ;
         a faldo:ForwardStrandPosition ;
            faldo:position "7"^^xsd:integer ;
@@ -56,17 +56,17 @@ A genomic region where we know exactly where it starts and ends on the reference
 A genomic region where the begin is on one contig and the end on an other:
 
 ```turtle
-<_:2> a faldo:Region
-           faldo:begin <_:2b> ;
-           faldo:end <_:2e> .
-<_:2b> a faldo:Position ; 
+_:2 a faldo:Region
+           faldo:begin _:2b ;
+           faldo:end _:2e .
+_:2b a faldo:Position ; 
             a faldo:ExactPosition ;
             faldo:position "1"^^xsd:integer ;
-            faldo:reference <_:contig17> .
-<_:2e> a faldo:Position; 
+            faldo:reference _:contig17 .
+_:2e a faldo:Position; 
            a faldo:ExactPosition ;
            faldo:position "4"^^xsd:integer ;
-           faldo:reference <_:contig29> .
+           faldo:reference _:contig29 .
 ```
 
 A rather curcial difference with most begin and end conventions here they are biological begin and end. 
@@ -89,24 +89,24 @@ is described in the INSDC feature table as `complement(1965072..1965461)`,
 which is 390 base pairs using inclusive one-based counting. In FALDO
 
 ```turtle
-<_:geneCheY> a <http://purl.obolibrary.org/obo/SO_0000704> ; # A gene as defined by the Sequence Ontology
+_:geneCheY a <http://purl.obolibrary.org/obo/SO_0000704> ; # A gene as defined by the Sequence Ontology
            rdfs:label "cheY" ;
-           faldo:location <_:example> ;
+           faldo:location _:example ;
 
-uniprot:P0AE67 up:encodedBy <_:geneCheY> .
+uniprot:P0AE67 up:encodedBy _:geneCheY .
 
-<_:example> a faldo:Region ;
-           faldo:begin <_:example_b> ;
-           faldo:end <_:example_e> .
+_:example a faldo:Region ;
+           faldo:begin _:example_b ;
+           faldo:end _:example_e .
 
-<_:example_b> a faldo:Position ,
+_:example_b a faldo:Position ,
                 faldo:ExactPosition ,
                 faldo:ReverseStrandPosition ;
             faldo:position "1965461"^^xsd:integer ; #see the end is smaller than the begin
             faldo:reference refseq:NC_000913.2 .
 
 
-<_:example_e> a faldo:Position ,
+_:example_e a faldo:Position ,
                 faldo:ExactPosition ,
                 faldo:ReverseStrandPosition ;
             faldo:position "1965072"^^xsd:integer ; #see the end is smaller than the begin
@@ -120,19 +120,19 @@ A or C is glycosylated. But we don't know which of the two it is. We do know it 
 
 
 ```turtle
-<_:glysolyatedAminoAcid>            a 	glycan:glycol:glycosylated_AA ; #The glycan ontology is used here
-				faldo:location <_:fuzzyPosition> .
-<_:fuzzyPosition> 	a 	faldo:FuzzyPosition ,
+_:glysolyatedAminoAcid            a 	glycan:glycol:glycosylated_AA ; #The glycan ontology is used here
+				faldo:location _:fuzzyPosition .
+_:fuzzyPosition 	a 	faldo:FuzzyPosition ,
 				faldo:InRangePosition ;
-			faldo:begin <_:exactBegin> ;
-			faldo:end   <_:exactEnd> .
-<_:faldoBegin>		a	faldo:ExactPosition ;
+			faldo:begin _:exactBegin ;
+			faldo:end   _:exactEnd .
+_:faldoBegin		a	faldo:ExactPosition ;
 			faldo:position 1 ;
-			faldo:refence <_:sequence> .
-<_:faldoEnd>		a	faldo:ExactPosition ;
+			faldo:refence _:sequence .
+_:faldoEnd		a	faldo:ExactPosition ;
 			faldo:position 2 ;
-			faldo:refence <_:sequence> .
-<_:sequence> a uniprot:Sequence ;
+			faldo:refence _:sequence .
+_:sequence a uniprot:Sequence ;
            rdf:value "ACK" .
 ```
 In the above example uniprot and glyco refer to the glycoprotein and uniprot schema's.
@@ -144,29 +144,29 @@ a probablisitic model that denotes that the feature could start at both position
 has a likelihood of 0.1 and position 2 has a likelihood of 0.9. 
 
 ```turtle
-<_:3> a    faldo:Region faldo:begin ;
-           faldo:begin <_:3b> ;
-           faldo:end <_:3e> .
+_:3 a    faldo:Region faldo:begin ;
+           faldo:begin _:3b ;
+           faldo:end _:3e .
 
-<_:3b> a   faldo:ProbablePosition ;
-           faldop:posibilities(<_:3bp1>,<_:3bp2>) .
+_:3b a   faldo:ProbablePosition ;
+           faldop:posibilities(_:3bp1,_:3bp2) .
 
-<_:3bp1> a faldop:ProbablePosition ;
+_:3bp1 a faldop:ProbablePosition ;
            faldop:probability "0.1"^^xsd:double ;
-           faldop:location <_:3bb1> .
+           faldop:location _:3bb1 .
 
-<_:3bp2> a faldop:ProbablePosition ;
+_:3bp2 a faldop:ProbablePosition ;
            faldop:probability "0.9"^^xsd:double ;
-           faldop:location <_:3bb2> .
-<_:3bb1> a faldo:Position ,
+           faldop:location _:3bb2 .
+_:3bb1 a faldo:Position ,
            faldo:ExactPosition ;
            faldo:position "1"^^xsd:integer ;
-           faldo:reference <_:1Strand> .
+           faldo:reference _:1Strand .
 
-<_:3bb2> a faldo:Position ,
+_:3bb2 a faldo:Position ,
            faldo:ExactPosition ;
            faldo:position "2"^^xsd:integer ;
-           faldo:reference <_:1Strand> .
+           faldo:reference _:1Strand .
 ```
 
 License
