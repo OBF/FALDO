@@ -106,12 +106,20 @@ by Masahide Kanzaki, and from the OWL2HTML stylesheet (2), by Li Ding. We are ve
 				  #header a {
                                         color: #ffffff;
                                   }
+				  #header #logo {
+                                     padding-left: 20px;
+				  }
 				  #header #trail {
-                                     width:70%;
+                                     text-align: left;
+				  }
+				  #header #menu {
+                                     text-align: right;
+                                     padding-right: 20px;
 				  }
 				  body {
                                     margin:0;
                                     padding:0;
+                                    font-family: trebuchet ms,sans-serif!important;
 				  }
 				  table {
                                     width:100%;
@@ -119,6 +127,7 @@ by Masahide Kanzaki, and from the OWL2HTML stylesheet (2), by Li Ding. We are ve
 				  }
 				  #search {
                                       margin-top:1em;
+                                      margin-left: 0.5em;
                                       padding-left: 1px;
                                       padding-right: 1px;
                                       background-color: #F5F5F5;
@@ -202,11 +211,11 @@ by Masahide Kanzaki, and from the OWL2HTML stylesheet (2), by Li Ding. We are ve
 			<tr>
 				<td id="logo">
 					<a href="/" accesskey="1">
-						<img src="http://www.biohackathon.org/_/rsrc/1309997258382/favicon.ico" alt="" width="25px" />
+						<img src="http://www.biohackathon.org/bh-favicon.png" alt="" width="37px" />
 					</a>
 				</td>
 				<td id="trail">
-					FALDO
+					FALDO: Feature Annotation Location Description Ontology
 				</td>
 				<td id="menu">
 					<a href="http://biohackathon.org/resource/faldo.ttl">Turtle</a>
