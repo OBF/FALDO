@@ -623,6 +623,19 @@ by Masahide Kanzaki, and from the OWL2HTML stylesheet (2), by Li Ding. We are ve
 					<xsl:when test="@rdf:resource">
 						<xsl:apply-templates select="." mode="resource" />
 					</xsl:when>
+					<xsl:when test="local-name() = 'hasKey' and namespace-uri() = '&owl;'">
+                                          <a href="{concat('&owl;', 'hasKey')}">owl:hasKey</a> consisting of (<br />
+                                          <xsl:for-each select="descendant::*/rdf:first">
+                                            <span class="indent">
+                                              <xsl:apply-templates select="." mode="resource" />
+                                            </span>
+                                            <xsl:if test="position() != last()">
+                                              <br /><em>and</em>
+                                            </xsl:if>
+                                            <br />
+                                          </xsl:for-each>
+                                          )
+                                        </xsl:when>
 					<xsl:when test="owl:Restriction">
 						<xsl:apply-templates select="*" mode="restriction" />
 					</xsl:when>
@@ -636,6 +649,9 @@ by Masahide Kanzaki, and from the OWL2HTML stylesheet (2), by Li Ding. We are ve
 						<xsl:value-of select='text()' />
 						<xsl:if test="@xml:lang">^^<xsl:apply-templates select="@xml:lang" mode="resource" />
 						</xsl:if>
+						<xsl:if test="owl:hasKey">
+                                                  hasKey
+                                                </xsl:if>
 						<xsl:if test="owl:Restriction">
 							<xsl:apply-templates select="*" mode="restriction" />
 						</xsl:if>
