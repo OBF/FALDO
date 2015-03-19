@@ -109,7 +109,7 @@ _:example_b a faldo:Position ,
 _:example_e a faldo:Position ,
                 faldo:ExactPosition ,
                 faldo:ReverseStrandPosition ;
-            faldo:position "1965072"^^xsd:integer ; # Note that the biological start position is numerically greater than the end position.
+            faldo:position "1965072"^^xsd:integer ; # Note that the biological end position is numerically less than the start position.
             faldo:reference refseq:NC_000913.2 .
 ```
 
