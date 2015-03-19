@@ -102,14 +102,14 @@ _:example a faldo:Region ;
 _:example_b a faldo:Position ,
                 faldo:ExactPosition ,
                 faldo:ReverseStrandPosition ;
-            faldo:position "1965461"^^xsd:integer ; # Note that the biological start position is numerically greater than the end position.
+            faldo:position "1965461"^^xsd:integer ; # Biological start position, which is located at a larger coordinate than the biological end position.
             faldo:reference refseq:NC_000913.2 .
 
 
 _:example_e a faldo:Position ,
                 faldo:ExactPosition ,
                 faldo:ReverseStrandPosition ;
-            faldo:position "1965072"^^xsd:integer ; # Note that the biological end position is numerically less than the start position.
+            faldo:position "1965072"^^xsd:integer ; # Biological end position, which is located at a smaller coordinate than the biological start position.
             faldo:reference refseq:NC_000913.2 .
 ```
 
