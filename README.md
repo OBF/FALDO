@@ -69,7 +69,7 @@ _:2e a faldo:Position;
            faldo:reference _:contig29 .
 ```
 
-A rather curcial difference with most begin and end conventions here they are biological begin and end. 
+A rather crucial difference with most begin and end conventions here they are biological begin and end. 
 Not smallest number is start and the larger number is end.
 
 ```
@@ -102,14 +102,14 @@ _:example a faldo:Region ;
 _:example_b a faldo:Position ,
                 faldo:ExactPosition ,
                 faldo:ReverseStrandPosition ;
-            faldo:position "1965461"^^xsd:integer ; # Beginning is smaller than the end position.
+            faldo:position "1965461"^^xsd:integer ; # Biological start position is smaller than the end position!
             faldo:reference refseq:NC_000913.2 .
 
 
 _:example_e a faldo:Position ,
                 faldo:ExactPosition ,
                 faldo:ReverseStrandPosition ;
-            faldo:position "1965072"^^xsd:integer ; # End position is larger than the beginning position.
+            faldo:position "1965072"^^xsd:integer ; # Biological end position is larger than the beginning position!
             faldo:reference refseq:NC_000913.2 .
 ```
 
