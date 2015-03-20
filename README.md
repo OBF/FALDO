@@ -69,7 +69,7 @@ _:2e a faldo:Position;
            faldo:reference _:contig29 .
 ```
 
-A rather curcial difference with most begin and end conventions here they are biological begin and end. 
+A rather crucial difference with most begin and end conventions here they are biological begin and end. 
 Not smallest number is start and the larger number is end.
 
 ```
@@ -89,7 +89,7 @@ is described in the INSDC feature table as `complement(1965072..1965461)`,
 which is 390 base pairs using inclusive one-based counting. In FALDO
 
 ```turtle
-_:geneCheY a <http://purl.obolibrary.org/obo/SO_0000704> ; # A gene as defined by the Sequence Ontology
+_:geneCheY a <http://purl.obolibrary.org/obo/SO_0000704> ; # A gene as defined by the Sequence Ontology.
            rdfs:label "cheY" ;
            faldo:location _:example ;
 
@@ -102,14 +102,14 @@ _:example a faldo:Region ;
 _:example_b a faldo:Position ,
                 faldo:ExactPosition ,
                 faldo:ReverseStrandPosition ;
-            faldo:position "1965461"^^xsd:integer ; #see the end is smaller than the begin
+            faldo:position "1965461"^^xsd:integer ; # Note that the biological start position is numerically greater than the end position.
             faldo:reference refseq:NC_000913.2 .
 
 
 _:example_e a faldo:Position ,
                 faldo:ExactPosition ,
                 faldo:ReverseStrandPosition ;
-            faldo:position "1965072"^^xsd:integer ; #see the end is smaller than the begin
+            faldo:position "1965072"^^xsd:integer ; # Note that the biological end position is numerically less than the start position.
             faldo:reference refseq:NC_000913.2 .
 ```
 
@@ -120,7 +120,7 @@ A or C is glycosylated. But we don't know which of the two it is. We do know it 
 
 
 ```turtle
-_:glysolyatedAminoAcid            a 	glycan:glycol:glycosylated_AA ; #The glycan ontology is used here
+_:glysolyatedAminoAcid            a 	glycan:glycol:glycosylated_AA ; # The glycan ontology is used here.
 				faldo:location _:fuzzyPosition .
 _:fuzzyPosition 	a 	faldo:FuzzyPosition ,
 				faldo:InRangePosition ;
