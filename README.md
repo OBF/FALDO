@@ -30,7 +30,7 @@ _:1 a faldo:Region ;
 _:1b a faldo:Position ; 
            a faldo:ExactPosition ;
            a faldo:ForwardStrandPosition ;
-            faldo:position "1"^^xsd:integer ;
+            faldo:position 1 ;
             faldo:reference ddbj:XXXDSDS .
 
 _:1e a faldo:Position ; 
@@ -43,30 +43,32 @@ _:1e a faldo:Position ;
 _:1ea a faldo:Position ;
         a faldo:ExactPosition ;
         a faldo:ForwardStrandPosition ;
-           faldo:position "3"^^xsd:integer ;
+           faldo:position 3 ;
            faldo:reference ddbj:XXXDSDS .
 
 _:1eb a faldo:Position ;
         a faldo:ExactPosition ;
         a faldo:ForwardStrandPosition ;
-           faldo:position "7"^^xsd:integer ;
+           faldo:position 7 ;
            faldo:reference ddbj:XXXDSDS .
 ```
 
 A genomic region where the begin is on one contig and the end on an other:
 
 ```turtle
-_:2 a faldo:Region
-           faldo:begin _:2b ;
-           faldo:end _:2e .
-_:2b a faldo:Position ; 
-            a faldo:ExactPosition ;
-            faldo:position "1"^^xsd:integer ;
-            faldo:reference _:contig17 .
-_:2e a faldo:Position; 
-           a faldo:ExactPosition ;
-           faldo:position "4"^^xsd:integer ;
-           faldo:reference _:contig29 .
+@prefix faldo: <http://biohackathon.org/resource/faldo> .
+
+_:2 a  faldo:Region ;
+         faldo:begin _:2b ;
+         faldo:end _:2e .
+_:2b a faldo:Position ,
+         faldo:ExactPosition ;
+         faldo:position 1 ;
+         faldo:reference _:contig17 .
+_:2e a faldo:Position ,
+         faldo:ExactPosition ;
+         faldo:position 4 ;
+         faldo:reference _:contig29 .
 ```
 
 A rather crucial difference with most begin and end conventions here they are biological begin and end. 
@@ -89,28 +91,31 @@ is described in the INSDC feature table as `complement(1965072..1965461)`,
 which is 390 base pairs using inclusive one-based counting. In FALDO
 
 ```turtle
-_:geneCheY a <http://purl.obolibrary.org/obo/SO_0000704> ; # A gene as defined by the Sequence Ontology.
-           rdfs:label "cheY" ;
-           faldo:location _:example ;
+@prefix faldo: <http://biohackathon.org/resource/faldo> .
+@prefix refseq: <http://identifiers.org/refseq/> .
+@prefix uniprot: <http://purl.uniprot.org/core/> .
 
-uniprot:P0AE67 up:encodedBy _:geneCheY .
+_:geneCheY a                     <http://purl.obolibrary.org/obo/SO_0000704> ; # A gene as defined by the Sequence Ontology.
+                                   rdfs:label "cheY" ;
+                                   faldo:location _:example .
 
-_:example a faldo:Region ;
-           faldo:begin _:example_b ;
-           faldo:end _:example_e .
+uniprot:P0AE67 uniprot:encodedBy _:geneCheY .
 
-_:example_b a faldo:Position ,
-                faldo:ExactPosition ,
-                faldo:ReverseStrandPosition ;
-            faldo:position "1965461"^^xsd:integer ; # Note that the biological start position is numerically greater than the end position.
-            faldo:reference refseq:NC_000913.2 .
+_:example a                      faldo:Region ;
+                                   faldo:begin _:example_b ;
+                                   faldo:end _:example_e .
 
+_:example_b a                    faldo:Position ,
+                                   faldo:ExactPosition ,
+                                   faldo:ReverseStrandPosition ;
+                                   faldo:position 1965461 ; # Note that the biological start position is numerically greater than the end position.
+                                   faldo:reference refseq:NC_000913.2 .
 
-_:example_e a faldo:Position ,
-                faldo:ExactPosition ,
-                faldo:ReverseStrandPosition ;
-            faldo:position "1965072"^^xsd:integer ; # Note that the biological end position is numerically less than the start position.
-            faldo:reference refseq:NC_000913.2 .
+_:example_e a                    faldo:Position ,
+                                 faldo:ExactPosition ,
+                                 faldo:ReverseStrandPosition ;
+                                 faldo:position 1965072 ; # Note that the biological end position is numerically less than the start position.
+                                 faldo:reference refseq:NC_000913.2 .
 ```
 
 ### Fuzzy positions
@@ -120,20 +125,24 @@ A or C is glycosylated. But we don't know which of the two it is. We do know it 
 
 
 ```turtle
-_:glysolyatedAminoAcid            a 	glycan:glycol:glycosylated_AA ; # The glycan ontology is used here.
-				faldo:location _:fuzzyPosition .
-_:fuzzyPosition 	a 	faldo:FuzzyPosition ,
-				faldo:InRangePosition ;
-			faldo:begin _:exactBegin ;
-			faldo:end   _:exactEnd .
-_:faldoBegin		a	faldo:ExactPosition ;
-			faldo:position 1 ;
-			faldo:refence _:sequence .
-_:faldoEnd		a	faldo:ExactPosition ;
-			faldo:position 2 ;
-			faldo:refence _:sequence .
-_:sequence a uniprot:Sequence ;
-           rdf:value "ACK" .
+@prefix faldo: <http://biohackathon.org/resource/faldo> .
+@prefix glycan: <http://purl.jp/bio/12/glyco/glycan> .
+@prefix uniprot: <http://purl.uniprot.org/core/> .
+
+_:glysolyatedAminoAcid a glycan:glycosylated_AA ; # The glycan ontology is used here.
+                           faldo:location _:fuzzyPosition .
+_:fuzzyPosition a        faldo:FuzzyPosition ,
+                           faldo:InRangePosition ;
+                           faldo:begin _:exactBegin ;
+                           faldo:end   _:exactEnd .
+_:faldoBegin a           faldo:ExactPosition ;
+                           faldo:position 1 ;
+                           faldo:refence _:sequence .
+_:faldoEnd a             faldo:ExactPosition ;
+                           faldo:position 2 ;
+                           faldo:refence _:sequence .
+_:sequence a             uniprot:Sequence ;
+                           rdf:value "ACK" .
 ```
 In the above example uniprot and glyco refer to the glycoprotein and uniprot schema's.
 
@@ -144,28 +153,30 @@ a probablisitic model that denotes that the feature could start at both position
 has a likelihood of 0.1 and position 2 has a likelihood of 0.9. 
 
 ```turtle
-_:3 a    faldo:Region faldo:begin ;
+@prefix faldo: <http://biohackathon.org/resource/faldo> .
+
+_:3 a    faldo:Region ;
            faldo:begin _:3b ;
            faldo:end _:3e .
 
 _:3b a   faldo:ProbablePosition ;
-           faldop:posibilities(_:3bp1,_:3bp2) .
+           faldo:posibilities ( _:3bp1 _:3bp2 ) .
 
-_:3bp1 a faldop:ProbablePosition ;
-           faldop:probability "0.1"^^xsd:double ;
-           faldop:location _:3bb1 .
+_:3bp1 a faldo:ProbablePosition ;
+           faldo:probability 0.1e0 ;
+           faldo:location _:3bb1 .
 
-_:3bp2 a faldop:ProbablePosition ;
-           faldop:probability "0.9"^^xsd:double ;
-           faldop:location _:3bb2 .
+_:3bp2 a faldo:ProbablePosition ;
+           faldo:probability 0.9e0 ;
+           faldo:location _:3bb2 .
 _:3bb1 a faldo:Position ,
            faldo:ExactPosition ;
-           faldo:position "1"^^xsd:integer ;
+           faldo:position 1 ;
            faldo:reference _:1Strand .
 
 _:3bb2 a faldo:Position ,
            faldo:ExactPosition ;
-           faldo:position "2"^^xsd:integer ;
+           faldo:position 2 ;
            faldo:reference _:1Strand .
 ```
 
