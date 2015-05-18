@@ -225,6 +225,14 @@
 
 :position
       rdf:type owl:DatatypeProperty ;
+      owl:deprecated true ;
+      owl:equivalentProperty :hasPosition ;
+      rdfs:comment "This is a deprecated property, use faldo:hasPosition instead." .
+
+
+:hasPosition
+      rdf:type owl:DatatypeProperty ;
+      owl:equivalentProperty :position ;
       rdfs:comment "Denoted in 1-based closed coordinates, i.e. the position on the first amino acid or nucleotide of a sequence has the value 1. For nucleotide sequences we count from the 5'end of the sequence, while for Aminoacid sequences we start counting from the N-Terminus."^^xsd:string , "The position value is the offset along the reference where this position is found. Thus the only the position value in combination with the reference determines where a position is."^^xsd:string ;
       rdfs:domain :ExactPosition ;
       rdfs:range
