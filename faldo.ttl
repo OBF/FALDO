@@ -204,6 +204,7 @@
 
 :beginOf
       rdf:type owl:ObjectProperty ;
+      rdfs:comment "This is the inverse of the begin:property. It is included to make it easier to write a number of OWL axioms. You should rarely use this in your raw data."^^xsd:string ;
       owl:inverseOf :begin .
 
 :end  rdf:type owl:ObjectProperty ;
@@ -213,6 +214,7 @@
 
 :endOf
       rdf:type owl:ObjectProperty ;
+      rdfs:comment "This is the inverse of the begin:end. It is included to make it easier to write a number of OWL axioms. You should rarely use this in your raw data."^^xsd:string ;
       owl:inverseOf :end .
 
 :location
