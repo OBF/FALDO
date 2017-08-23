@@ -188,7 +188,7 @@ License
 [![Creative Commons License](http://creativecommons.org/images/deed/nolaw.png)](http://creativecommons.org/publicdomain/zero/1.0/) This work is licensed under a [Creative Commons Zero 1.0 Public Domain Dedication](http://creativecommons.org/publicdomain/zero/1.0/).
 
 
-###Conversion into different RDF/XML
+### Conversion into different RDF or XML formats
 FALDO being maintained in faldo.ttl  can be converted into RDF/XML using for example the rapper tools.
 
 ```
