@@ -224,7 +224,7 @@ by Masahide Kanzaki, and from the OWL2HTML stylesheet (2), by Li Ding. We are ve
                                         &#183; <!-- middot -->
 					<a href="https://groups.google.com/forum/#!forum/faldo" accesskey="9">Contact/Help</a>
 					&#183; <!-- middot -->
-					<a href="https://github.com/JervenBolleman/FALDO" rel="help">Documentation</a>
+					<a href="https://github.com/OBF/FALDO" rel="help">Documentation</a>
 				</td>
 			</tr>
 		</table> <!-- end of header -->
