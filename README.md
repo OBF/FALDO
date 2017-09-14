@@ -25,34 +25,26 @@ The examples in turtle avoid declaring prefixes for space reasons.
 A genomic region where we know exactly where it starts and ends on the reference genome sequence:
 
 ```turtle
-_:1 a faldo:Region ;
-           faldo:begin _:1b ;
-           faldo:end _:1e .
+_:1    a  faldo:Region ;
+            faldo:begin _:1b ;
+            faldo:end _:1e .
 
-_:1b a faldo:Position ; 
-           a faldo:ExactPosition ;
-           a faldo:ForwardStrandPosition ;
+_:1b   a  faldo:ExactPosition, faldo:ForwardStrandPosition ;
             faldo:position 1 ;
             faldo:reference ddbj:XXXDSDS .
 
-_:1e a faldo:Position ; 
-           a :FuzzyPosition ;
-           a :ForwardStrandPosition ;
-           faldo:begin _:1ea ;
-           faldo:end _:1eb ;
-           faldo:reference ddbj:XXXDSDS .
+_:1e   a  faldo:FuzzyPosition, faldo:ForwardStrandPosition ;
+            faldo:begin _:1ea ;
+            faldo:end _:1eb ;
+            faldo:reference ddbj:XXXDSDS .
 
-_:1ea a faldo:Position ;
-        a faldo:ExactPosition ;
-        a faldo:ForwardStrandPosition ;
-           faldo:position 3 ;
-           faldo:reference ddbj:XXXDSDS .
+_:1ea  a  faldo:ExactPosition, faldo:ForwardStrandPosition ;
+            faldo:position 3 ;
+            faldo:reference ddbj:XXXDSDS .
 
-_:1eb a faldo:Position ;
-        a faldo:ExactPosition ;
-        a faldo:ForwardStrandPosition ;
-           faldo:position 7 ;
-           faldo:reference ddbj:XXXDSDS .
+_:1eb  a  faldo:ExactPosition, faldo:ForwardStrandPosition ;
+            faldo:position 7 ;
+            faldo:reference ddbj:XXXDSDS .
 ```
 
 A genomic region where the begin is on one contig and the end on an other:
@@ -60,17 +52,15 @@ A genomic region where the begin is on one contig and the end on an other:
 ```turtle
 @prefix faldo: <http://biohackathon.org/resource/faldo> .
 
-_:2 a  faldo:Region ;
-         faldo:begin _:2b ;
-         faldo:end _:2e .
-_:2b a faldo:Position ,
-         faldo:ExactPosition ;
-         faldo:position 1 ;
-         faldo:reference _:contig17 .
-_:2e a faldo:Position ,
-         faldo:ExactPosition ;
-         faldo:position 4 ;
-         faldo:reference _:contig29 .
+_:2    a  faldo:Region ;
+            faldo:begin _:2b ;
+            faldo:end _:2e .
+_:2b   a  faldo:ExactPosition ;
+           faldo:position 1 ;
+           faldo:reference _:contig17 .
+_:2e   a  faldo:ExactPosition ;
+           faldo:position 4 ;
+           faldo:reference _:contig29 .
 ```
 
 A rather crucial difference with most begin and end conventions here they are biological begin and end. 
@@ -97,27 +87,39 @@ which is 390 base pairs using inclusive one-based counting. In FALDO
 @prefix refseq: <http://identifiers.org/refseq/> .
 @prefix uniprot: <http://purl.uniprot.org/core/> .
 
-_:geneCheY a                     <http://purl.obolibrary.org/obo/SO_0000704> ; # A gene as defined by the Sequence Ontology.
-                                   rdfs:label "cheY" ;
-                                   faldo:location _:example .
+_:geneCheY   a  <http://purl.obolibrary.org/obo/SO_0000704> ;  # A gene as defined by the Sequence Ontology.
+                  rdfs:label "cheY" ;
+                  faldo:location _:example .
 
 uniprot:P0AE67 uniprot:encodedBy _:geneCheY .
 
-_:example a                      faldo:Region ;
-                                   faldo:begin _:example_b ;
-                                   faldo:end _:example_e .
+_:example    a  faldo:Region ;
+                  faldo:begin _:example_b ;
+                  faldo:end _:example_e .
 
-_:example_b a                    faldo:Position ,
-                                   faldo:ExactPosition ,
-                                   faldo:ReverseStrandPosition ;
-                                   faldo:position 1965461 ; # Note that the biological start position is numerically greater than the end position.
-                                   faldo:reference refseq:NC_000913.2 .
+_:example_b  a  faldo:ExactPosition, faldo:ReverseStrandPosition ;
+                  faldo:position 1965461 ;  # Note that the biological start position is numerically greater than the end position.
+                  faldo:reference refseq:NC_000913.2 .
 
-_:example_e a                    faldo:Position ,
-                                 faldo:ExactPosition ,
-                                 faldo:ReverseStrandPosition ;
-                                 faldo:position 1965072 ; # Note that the biological end position is numerically less than the start position.
-                                 faldo:reference refseq:NC_000913.2 .
+_:example_e  a  faldo:ExactPosition, faldo:ReverseStrandPosition ;
+                  faldo:position 1965072 ;  # Note that the biological end position is numerically less than the start position.
+                  faldo:reference refseq:NC_000913.2 .
+```
+
+### Single position
+
+In a case of single sequence position such as SNPs, faldo:location can directry refer to faldo:Position instead of faldo:Region.
+
+```turtle
+@prefix faldo: <http://biohackathon.org/resource/faldo> .
+@prefix refseq: <http://identifiers.org/refseq/> .
+
+_:snp       a  <http://purl.obolibrary.org/obo/SO_0000694> ;
+                 faldo:location _:pos .
+
+_:pos       a  faldo:ExactPosition ;
+                faldo:position 55505520 ;
+                faldo:reference refseq:NC_000001.11 .
 ```
 
 ### Fuzzy positions
@@ -131,7 +133,7 @@ A or C is glycosylated. But we don't know which of the two it is. We do know it 
 @prefix glycan: <http://purl.jp/bio/12/glyco/glycan> .
 @prefix uniprot: <http://purl.uniprot.org/core/> .
 
-_:glysolyatedAminoAcid a glycan:glycosylated_AA ; # The glycan ontology is used here.
+_:glysolyatedAminoAcid a glycan:glycosylated_AA ;  # The glycan ontology is used here.
                            faldo:location _:fuzzyPosition .
 _:fuzzyPosition a        faldo:FuzzyPosition ,
                            faldo:InRangePosition ;
