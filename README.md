@@ -13,7 +13,13 @@ such as the Sequence Ontology or the UniProt core ontolgy.
 
 You can read more about it our [paper describing FALDO](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4907002/)
 
-The ontology can be browsed here: http://biohackathon.org/resource/faldo
+The ontology can be browsed here: http://biohackathon.org/resource/faldo or at http://aber-owl.net/ontology/FALDO/#/ 
+
+Questions
+=========
+
+Questions can be asked [here using github issues](https://github.com/OBF/FALDO/issues), the [google group](https://groups.google.com/forum/#!forum/faldo), and [BioStars](https://www.biostars.org/). If using biostars please tag the question with 'faldo' so that it is easy for us to find.
+
 
 Examples
 --------
