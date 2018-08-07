@@ -161,23 +161,25 @@ In the above example uniprot and glyco refer to the glycoprotein and uniprot sch
 Here we have a begin position that could be one of two nucleotides. This case uses
 a probablisitic model that denotes that the feature could start at both positions 1 or 2. Position 1
 has a likelihood of 0.1 and position 2 has a likelihood of 0.9. 
+This is an extension to published FALDO that shows what is possible if one has this usecase.
 
 ```turtle
 @prefix faldo: <http://biohackathon.org/resource/faldo> .
+@prefix probablisticfaldo: <http://example.org/resource/faldo> .
 
 _:3 a    faldo:Region ;
            faldo:begin _:3b ;
            faldo:end _:3e .
 
 _:3b a   faldo:ProbablePosition ;
-           faldo:posibilities ( _:3bp1 _:3bp2 ) .
+           probablisticfaldo:posibilities ( _:3bp1 _:3bp2 ) .
 
 _:3bp1 a faldo:ProbablePosition ;
-           faldo:probability 0.1e0 ;
+           probablisticfaldo:probability 0.1e0 ;
            faldo:location _:3bb1 .
 
 _:3bp2 a faldo:ProbablePosition ;
-           faldo:probability 0.9e0 ;
+           probablisticfaldo:probability 0.9e0 ;
            faldo:location _:3bb2 .
 _:3bb1 a faldo:Position ,
            faldo:ExactPosition ;
