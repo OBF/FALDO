@@ -81,7 +81,13 @@
       rdf:type owl:Class ;
       rdfs:comment "A position that lacks exact data."^^xsd:string ;
       rdfs:label "Fuzzy position"^^xsd:string ;
-      rdfs:subClassOf :Position .
+      rdfs:subClassOf :Position ;
+ 	  rdfs:subClassOf 
+			  [ rdf:type owl:Restriction ;
+				owl:onProperty :probability ;
+				owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+				owl:onDataRange owl:float
+			  ] .
 
 :InBetweenPosition
       rdf:type owl:Class ;
@@ -136,7 +142,13 @@
       rdf:type owl:Class ;
       rdfs:comment "The position is known to be one of the more detailed positions listed by the location predicate."^^xsd:string ;
       rdfs:label "One of positions"^^xsd:string ;
-      rdfs:subClassOf :FuzzyPosition ;
+	  rdfs:subClassOf :FuzzyPosition ;
+	  rdfs:subClassOf 
+	          [ rdf:type owl:Restriction ;
+				owl:onProperty :possiblePosition ;
+				owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+				owl:onClass :Position
+			  ] ;
       owl:disjointWith :ExactPosition , :InRangePosition , :InBetweenPosition .
 
 :Position
@@ -252,4 +264,23 @@
 :reference
       rdf:type owl:ObjectProperty ;
       rdfs:comment "The reference is the resource that the position value is anchored to.  For example, a contig or chromosome in a genome assembly."^^xsd:string ;
-      rdfs:label "reference"^^xsd:string .
+      rdfs:label "reference"^^xsd:string .	 
+
+:possiblePosition 
+	  rdf:type owl:ObjectProperty ;
+	  rdfs:comment "One of the possible positions listed for a OneOfPosition element."^^xsd:string ; ;
+	  rdfs:label "possiblePosition"^^xsd:string ;
+	  rdfs:domain :OneOfPosition ;
+	  rdfs:range :Position .
+	  
+:probability
+	  rdfs:type owl:DatatypeProperty ;
+        rdfs:comment "A probability value possibly attached to a fuzzy position."^^xsd:string ;
+        rdfs:label "probability"^^xsd:string ;
+	  rdfs:domain :FuzzyPosition ;
+	  rdfs:range
+              [ rdf:type rdfs:Datatype ;
+                owl:onDatatype xsd:float ;
+                owl:withRestrictions
+                        ([ xsd:minInclusive "0.0"^^xsd:float ] [ xsd:maxInclusive "1.0"^^xsd:float])
+              ] . 
