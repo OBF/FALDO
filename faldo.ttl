@@ -249,6 +249,11 @@
                           ])
               ] .
 
+:possiblePosition 
+      rdf:type owl:ObjectProperty ;
+      rdfs:label "possiblePosition"^^xsd:string ; 
+      rdfs:comment "One of the possible positions listed for a OneOfPosition element."^^xsd:string .
+
 :reference
       rdf:type owl:ObjectProperty ;
       rdfs:comment "The reference is the resource that the position value is anchored to.  For example, a contig or chromosome in a genome assembly."^^xsd:string ;
