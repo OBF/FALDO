@@ -3,7 +3,7 @@ FALDO
 
 FALDO is the Feature Annotation Location Description Ontology.
 It is a simple ontology to describe sequence feature positions and regions as found in 
-[GFF3](http://www.sequenceontology.org/gff3.shtml), [DBBJ](http://www.ddbj.nig.ac.jp),
+[GFF3](http://www.sequenceontology.org/gff3.shtml), [DDBJ](http://www.ddbj.nig.ac.jp),
 [EMBL](http://www.embl.org), [GenBank](http://www.ncbi.nlm.nih.gov/genbank) files,
 [UniProt](http://www.uniprot.org), and many other bioinformatics resources.
 
