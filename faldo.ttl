@@ -199,7 +199,7 @@
       rdfs:range :ExactPosition .
 
 :begin
-      rdf:type owl:ObjectProperty ;
+      rdf:type owl:ObjectProperty , owl:TransitiveProperty ;
       rdfs:comment "The inclusive beginning of a position. Also known as start."^^xsd:string ;
       rdfs:label "begin"^^xsd:string ;
       rdfs:domain
@@ -215,7 +215,7 @@
       rdfs:label "beginOf"^^xsd:string ;
       owl:inverseOf :begin .
 
-:end  rdf:type owl:ObjectProperty ;
+:end  rdf:type owl:ObjectProperty, owl:TransitiveProperty  ;
       rdfs:comment "The inclusive end of the position."^^xsd:string ;
       rdfs:label "end"^^xsd:string ;
       rdfs:range :Position ;
